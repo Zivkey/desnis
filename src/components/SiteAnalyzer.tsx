@@ -159,21 +159,38 @@ export function SiteAnalyzer() {
                     <label className="mt-6 block text-xs font-light text-white/50">
                       What industry are you in?
                     </label>
-                    <select
-                      required
-                      value={industry}
-                      onChange={(e) => setIndustry(e.target.value)}
-                      className="mt-1.5 h-12 w-full rounded-xl bg-white/10 px-4 text-sm text-white outline-none transition-colors focus:bg-white/[0.14]"
-                    >
-                      <option value="" disabled className="text-ink">
-                        Select your industry
-                      </option>
-                      {industries.map((i) => (
-                        <option key={i} value={i} className="text-ink">
-                          {i}
+                    <div className="relative mt-1.5">
+                      <select
+                        required
+                        value={industry}
+                        onChange={(e) => setIndustry(e.target.value)}
+                        className="h-12 w-full appearance-none rounded-xl bg-white/10 pl-4 pr-11 text-sm text-white outline-none transition-colors focus:bg-white/[0.14]"
+                      >
+                        <option value="" disabled className="text-ink">
+                          Select your industry
                         </option>
-                      ))}
-                    </select>
+                        {industries.map((i) => (
+                          <option key={i} value={i} className="text-ink">
+                            {i}
+                          </option>
+                        ))}
+                      </select>
+                      {/* Custom chevron (native arrow removed via appearance-none) */}
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 24 24"
+                        width="16"
+                        height="16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/50"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </div>
 
                     {/* Goals */}
                     <p className="mt-5 text-xs font-light text-white/50">
