@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -21,11 +21,12 @@ const features = [
 const LOREM = "Lorem ipsum dolor sit amet consectetur.";
 
 const oneTime = [
-  { name: "Landing Page", price: "$1000", pages: ["1 pager"] },
-  { name: "Premium", price: "$5000", pages: ["5 pages", "10 pages", "15 pages+"] },
+  { name: "Landing Page", pages: ["1 pager"], prices: [1000] },
+  { name: "Premium", pages: ["5 pages", "10 pages", "15 pages+"], prices: [5000, 9000, 14000] },
 ];
 
 const hourPlans = ["Starter", "Growth", "Scale"];
+const hourPrices = [500, 1200, 2500];
 
 const tabs = ["One-Time", "Monthly"];
 
@@ -139,6 +140,35 @@ function TokensLine({ amount, rate }: { amount: string; rate: string }) {
   );
 }
 
+const formatPrice = (v: number) => `$${Math.round(v)}`;
+
+/** Price that rolls (counts) from its previous value to the new one via GSAP. */
+function AnimatedPrice({ value, className }: { value: number; className?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const valRef = useRef({ v: value });
+  const initial = useRef(formatPrice(value));
+
+  useEffect(() => {
+    const tween = gsap.to(valRef.current, {
+      v: value,
+      duration: 0.5,
+      ease: "power2.out",
+      onUpdate: () => {
+        if (ref.current) ref.current.textContent = formatPrice(valRef.current.v);
+      },
+    });
+    return () => {
+      tween.kill(); // keep the current animated value, no jump on rapid changes
+    };
+  }, [value]);
+
+  return (
+    <span ref={ref} className={className}>
+      {initial.current}
+    </span>
+  );
+}
+
 export function PricingTabs() {
   const [active, setActive] = useState(0);
   const [premiumPages, setPremiumPages] = useState(0);
@@ -240,7 +270,10 @@ export function PricingTabs() {
               >
                 <h3 className="text-2xl tracking-[-0.96px]">{t.name}</h3>
                 <p className="mt-2 text-base font-light leading-6 text-white/65">{LOREM}</p>
-                <span className="mt-6 text-[40px] leading-none tracking-[-1.6px]">{t.price}</span>
+                <AnimatedPrice
+                  value={t.prices[t.pages.length > 1 ? premiumPages : 0]}
+                  className="mt-6 text-[40px] leading-none tracking-[-1.6px]"
+                />
 
                 {t.pages.length < 2 ? (
                   <div className="mt-6 rounded-xl bg-white/[0.06] p-1">
@@ -300,7 +333,10 @@ export function PricingTabs() {
               <article data-price-card className="glass flex flex-col rounded-2xl p-8 text-left">
                 <h3 className="text-2xl tracking-[-0.96px]">Hour Package</h3>
                 <p className="mt-2 text-base font-light leading-6 text-white/65">{LOREM}</p>
-                <span className="mt-6 text-[40px] leading-none tracking-[-1.6px]">$500</span>
+                <AnimatedPrice
+                  value={hourPrices[hourPlan]}
+                  className="mt-6 text-[40px] leading-none tracking-[-1.6px]"
+                />
                 <TokensLine amount="5 Tokens" rate="$100 = 1h" />
 
                 <SlidingTabs
