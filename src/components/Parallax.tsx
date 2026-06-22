@@ -29,11 +29,17 @@ export function Parallax({ children, className, from = 40, to = -40 }: ParallaxP
     () => {
       if (!triggerRef.current || !innerRef.current) return;
 
+      // Trigger on the enclosing footer/section so the scrub range runs all
+      // the way to the bottom of the page (the wrapper alone ends early because
+      // content sits below it).
+      const trigger =
+        (triggerRef.current.closest("footer, section") as HTMLElement | null) ??
+        triggerRef.current;
+
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         // Animate the inner element while triggering on the (untransformed)
-        // wrapper, so the trigger's position stays stable. The range is
-        // reachable for a bottom-of-page element (ends when fully in view).
+        // section, so the trigger's position stays stable.
         gsap.fromTo(
           innerRef.current,
           { x: from },
@@ -41,7 +47,7 @@ export function Parallax({ children, className, from = 40, to = -40 }: ParallaxP
             x: to,
             ease: "none",
             scrollTrigger: {
-              trigger: triggerRef.current,
+              trigger,
               start: "top bottom",
               end: "bottom bottom",
               scrub: true,
