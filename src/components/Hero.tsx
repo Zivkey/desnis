@@ -104,9 +104,11 @@ export function Hero() {
       {/* Showcase carousel — auto-scrolls, pauses on hover, bleeds off both edges */}
       <Reveal y={20} delay={0.15}>
        <div id="our-work" className="group mt-14">
-        {/* Clip horizontally for the marquee, but pad vertically (and cancel it
-            with a negative margin) so a card's hover scale isn't clipped top/bottom. */}
-        <div className="overflow-hidden py-3 -my-3">
+        {/* Clip horizontally for the marquee, but pad vertically so a card's
+            hover scale isn't clipped top/bottom. Only the top padding is pulled
+            back with a negative margin; the bottom stays as real space so the
+            hero section's own overflow-hidden doesn't clip the scaled card. */}
+        <div className="overflow-hidden py-3 -mt-3">
          <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
           {[0, 1].map((dup) => (
             <div
