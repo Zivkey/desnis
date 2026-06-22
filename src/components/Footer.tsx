@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
-import { Parallax } from "./Parallax";
+import { FooterWordmark } from "./FooterWordmark";
 import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 
@@ -51,17 +51,10 @@ export function Footer() {
        </Reveal>
       </Container>
 
-      {/* Oversized wordmark — subtle scroll parallax */}
-      <Parallax className="relative mt-10 w-full" from={18} to={-18}>
-        <Image
-          src={assets.footerWordmark}
-          alt="DES/NIS"
-          width={1440}
-          height={325}
-          className="h-auto w-full select-none opacity-90"
-          priority={false}
-        />
-      </Parallax>
+      {/* Oversized wordmark — GSAP draws the letters on, looping. */}
+      <div className="relative mt-10 w-full">
+        <FooterWordmark />
+      </div>
 
       <Container className="flex flex-col items-start gap-3 pb-10 pt-2">
         <p className="text-sm text-white/65">© 2024 DES/NIS All rights reserved.</p>
