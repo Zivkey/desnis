@@ -15,8 +15,8 @@ export function Navbar() {
       <Container className="flex items-center justify-between py-6">
         {/* Logo + left-aligned nav */}
         <div className="flex items-center gap-9">
-          <a href="#" className="flex size-12 items-center justify-center rounded-lg bg-white/5 transition-colors hover:bg-white/10">
-            <Image src={assets.logoMark} alt="DES/NIS" width={16} height={16} />
+          <a href="#" aria-label="DES/NIS home" className="inline-block transition-opacity hover:opacity-80">
+            <Image src={assets.logoMark} alt="DES/NIS" width={24} height={24} className="h-6 w-6 max-w-none" />
           </a>
 
           <nav className="hidden items-center gap-9 text-base font-light text-white/65 lg:flex">

@@ -48,7 +48,7 @@ export const assets = {
 
   // Icons (svg)
   whatsapp: `${base}/46cb3a7e422011bbe1eedf03265fff99ff958fce.svg`,
-  logoMark: `${base}/2e85928cdced54441d0db03e0e59897882887eff.svg`,
+  logoMark: `${base}/5cd3b458864163559b22e67e93ca7581c1cd9441.svg`,
   arrowUp: `${base}/f9770e95746bfc6d9eafd376daaab4bb27f30df7.svg`,
   iconMonitor: `${base}/7bedfd1a28e33c1225fba1d24861254ba693a22c.svg`,
   iconSearch: `${base}/08ba032050f22e6c7bee25df6347e61a258c682e.svg`,
