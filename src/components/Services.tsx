@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
+import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 
 function LearnMore() {
   return (
-    <button className="glass-soft rounded-xl px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-ink">
+    <button className={flowHover("light", "rounded-xl px-4 py-3 text-sm font-semibold")}>
       Learn more
     </button>
   );

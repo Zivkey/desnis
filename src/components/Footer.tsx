@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
 import { Parallax } from "./Parallax";
+import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 
 export function Footer() {
@@ -34,7 +35,7 @@ export function Footer() {
 
           <a
             href="#contact"
-            className="glass-soft flex w-full max-w-[278px] items-center justify-between rounded-xl px-3.5 py-3 transition-colors hover:bg-white/15"
+            className={flowHover("light", "w-full max-w-[278px] justify-between rounded-xl px-3.5 py-3")}
           >
             <span className="flex items-center">
               <span className="size-6 overflow-hidden rounded-full border-[0.75px] border-white bg-white">
@@ -44,7 +45,7 @@ export function Footer() {
                 <Image src={assets.avatar3} alt="" width={24} height={24} className="size-full object-cover" />
               </span>
             </span>
-            <span className="text-sm font-semibold text-white">Reach out</span>
+            <span className="text-sm font-semibold">Reach out</span>
           </a>
         </div>
        </Reveal>

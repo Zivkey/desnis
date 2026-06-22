@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
 import { AltaNapaLogo, CompassLogo, HessenLogo, OutliersLogo } from "./BrandLogos";
+import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 
 // Four unique cards shown in a repeating 1,2,3,4 sequence.
@@ -94,7 +95,7 @@ export function Hero() {
           <div className="flex h-[60px] flex-1 items-center rounded-xl bg-white/10 px-5 text-sm text-white/35">
             yourwebsite.com
           </div>
-          <button className="h-[60px] shrink-0 rounded-xl bg-white px-6 text-sm font-bold text-ink transition-colors hover:bg-black hover:text-white">
+          <button className={flowHover("dark", "h-[60px] shrink-0 rounded-xl px-6 text-sm font-bold")}>
             Let&rsquo;s analyze
           </button>
         </div>

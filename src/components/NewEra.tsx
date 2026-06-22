@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
+import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 
 export function NewEra() {
@@ -19,7 +20,7 @@ export function NewEra() {
         <div className="mt-8 flex items-center gap-2">
           <a
             href="#contact"
-            className="rounded-xl bg-white px-6 py-3 text-base font-medium tracking-[-0.32px] text-ink transition-colors hover:bg-black hover:text-white"
+            className={flowHover("dark", "rounded-xl px-6 py-3 text-base tracking-[-0.32px]")}
           >
             Get in touch
           </a>

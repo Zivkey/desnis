@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -153,7 +154,7 @@ export function PricingTabs() {
             </div>
             <p className="mt-1 text-base font-light text-white">{t.monthly}</p>
 
-            <button className="glass-soft mt-10 rounded-xl py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-ink">
+            <button className={flowHover("light", "mt-10 w-full rounded-xl py-3 text-sm font-semibold")}>
               Get Started
             </button>
 
