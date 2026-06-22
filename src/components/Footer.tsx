@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Container } from "./Container";
+import { Reveal } from "./Reveal";
+import { Parallax } from "./Parallax";
 import { assets } from "@/lib/assets";
 
 export function Footer() {
@@ -18,6 +20,7 @@ export function Footer() {
       </div>
 
       <Container>
+       <Reveal>
         <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
           <div>
             <p className="text-base text-white/65">Email</p>
@@ -44,10 +47,11 @@ export function Footer() {
             <span className="text-sm font-semibold text-white">Reach out</span>
           </a>
         </div>
+       </Reveal>
       </Container>
 
-      {/* Oversized wordmark */}
-      <div className="relative mt-10 w-full">
+      {/* Oversized wordmark — subtle scroll parallax */}
+      <Parallax className="relative mt-10 w-full" from={18} to={-18}>
         <Image
           src={assets.footerWordmark}
           alt="DES/NIS"
@@ -56,7 +60,7 @@ export function Footer() {
           className="h-auto w-full select-none opacity-90"
           priority={false}
         />
-      </div>
+      </Parallax>
 
       <Container className="flex flex-col items-start gap-3 pb-10 pt-2">
         <p className="text-sm text-white/65">© 2024 DES/NIS All rights reserved.</p>

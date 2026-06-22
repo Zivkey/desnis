@@ -31,6 +31,14 @@ button:not(:disabled),
   cursor: pointer;
 }
 
+/* Scroll-reveal wrappers start hidden so the server-rendered content does not
+   flash visible before GSAP takes over. GSAP sets an inline opacity (which
+   overrides this), and the <noscript> rule in the layout keeps content visible
+   when JavaScript is unavailable. */
+[data-reveal] {
+  opacity: 0;
+}
+
 /* Frosted-glass surfaces. Kept in @layer components so Tailwind `hover:bg-*`
    utilities can override the background on interactive elements. */
 @layer components {

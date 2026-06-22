@@ -30,7 +30,12 @@ export default function RootLayout({
       lang="en"
       className={`${geist.variable} ${instrumentSerif.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        <noscript>
+          <style>{`[data-reveal]{opacity:1 !important}`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }

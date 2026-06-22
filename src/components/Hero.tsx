@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "./Container";
+import { Reveal } from "./Reveal";
 import { assets } from "@/lib/assets";
 
 const cards = [
@@ -34,6 +35,7 @@ export function Hero() {
       <div className="absolute inset-x-0 top-24 h-px bg-white/10" />
 
       <Container>
+       <Reveal stagger={0.12}>
         {/* "Meet the team" pill */}
         <a
           href="#"
@@ -93,10 +95,12 @@ export function Hero() {
             Let&rsquo;s analyze
           </button>
         </div>
+       </Reveal>
       </Container>
 
       {/* Showcase carousel — auto-scrolls, pauses on hover, bleeds off both edges */}
-      <div id="our-work" className="group mt-14 overflow-hidden">
+      <Reveal y={20} delay={0.15}>
+       <div id="our-work" className="group mt-14 overflow-hidden">
         <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
           {[0, 1].map((dup) => (
             <div
@@ -121,7 +125,8 @@ export function Hero() {
             </div>
           ))}
         </div>
-      </div>
+       </div>
+      </Reveal>
     </section>
   );
 }

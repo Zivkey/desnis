@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 import { Container } from "./Container";
+import { Reveal } from "./Reveal";
 import { assets } from "@/lib/assets";
 
 function OutliersLogo() {
@@ -49,11 +50,13 @@ export function Testimonials() {
   return (
     <section className="relative py-24 lg:py-32">
       <Container>
-        <h2 className="max-w-[640px] text-[34px] leading-tight tracking-[-1.44px] sm:text-[40px] lg:text-[48px]">
-          Hear it directly from the source
-        </h2>
+        <Reveal>
+          <h2 className="max-w-[640px] text-[34px] leading-tight tracking-[-1.44px] sm:text-[40px] lg:text-[48px]">
+            Hear it directly from the source
+          </h2>
+        </Reveal>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
+        <Reveal className="mt-12 grid gap-4 md:grid-cols-2" stagger={0.15}>
           {items.map((t) => (
             <article
               key={t.name}
@@ -96,7 +99,7 @@ export function Testimonials() {
               </div>
             </article>
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

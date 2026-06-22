@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "./Container";
+import { Reveal } from "./Reveal";
 import { assets } from "@/lib/assets";
 
 const features = [
@@ -19,7 +20,7 @@ export function Pricing() {
   return (
     <section id="pricing" className="relative py-20 lg:py-24">
       <Container>
-        <div>
+        <Reveal stagger={0.12}>
           <h2 className="text-[28px] leading-tight tracking-[-1.28px] sm:text-[32px]">
             Our pricing is simple
           </h2>
@@ -27,10 +28,9 @@ export function Pricing() {
             Lorem ipsum dolor sit amet consectetur. Metus suscipit diam et quis
             ipsum adipiscing tortor lacus.
           </p>
-        </div>
 
-        {/* Segmented toggle */}
-        <div className="mt-8 flex justify-start">
+          {/* Segmented toggle */}
+          <div className="mt-8 flex justify-start">
           <div className="glass flex items-center gap-1 rounded-xl p-1">
             <button className="rounded-xl bg-white px-3.5 py-2.5 text-sm font-medium tracking-[-0.42px] text-ink transition-opacity hover:opacity-90">
               Launch your site
@@ -39,10 +39,11 @@ export function Pricing() {
               Grow your business
             </button>
           </div>
-        </div>
+          </div>
+        </Reveal>
 
         {/* Cards */}
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
+        <Reveal className="mt-12 grid gap-4 md:grid-cols-3" stagger={0.15}>
           {tiers.map((t, i) => (
             <article
               key={i}
@@ -77,7 +78,7 @@ export function Pricing() {
               </ul>
             </article>
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

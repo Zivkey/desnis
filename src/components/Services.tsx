@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "./Container";
+import { Reveal } from "./Reveal";
 import { assets } from "@/lib/assets";
 
 function LearnMore() {
@@ -88,20 +89,22 @@ export function Services() {
   return (
     <section id="what-we-do" className="relative pt-20 lg:pt-24">
       <Container>
-        <h2 className="text-[34px] leading-tight tracking-[-1.44px] sm:text-[40px] lg:text-[48px]">
-          What we do
-        </h2>
-        <p className="mt-6 max-w-[474px] text-lg font-light leading-7 text-white/65">
-          Lorem ipsum dolor sit amet consectetur. Metus suscipit diam et quis
-          ipsum adipiscing tortor lacus.
-        </p>
+        <Reveal>
+          <h2 className="text-[34px] leading-tight tracking-[-1.44px] sm:text-[40px] lg:text-[48px]">
+            What we do
+          </h2>
+          <p className="mt-6 max-w-[474px] text-lg font-light leading-7 text-white/65">
+            Lorem ipsum dolor sit amet consectetur. Metus suscipit diam et quis
+            ipsum adipiscing tortor lacus.
+          </p>
+        </Reveal>
       </Container>
 
       {/* Full-width top line, matching the bottom separator */}
       <div className="mt-12 md:border-t md:border-white/10">
         <Container>
           {/* Transparent columns; bottom line is shared with the next section */}
-          <div className="grid gap-y-12 md:grid-cols-3 md:gap-0 md:border-x md:border-white/10 md:divide-x md:divide-white/10">
+          <Reveal className="grid gap-y-12 md:grid-cols-3 md:gap-0 md:border-x md:border-white/10 md:divide-x md:divide-white/10" stagger={0.12}>
             {columns.map((c) => (
               <div
                 key={c.title}
@@ -112,7 +115,7 @@ export function Services() {
                 <LearnMore />
               </div>
             ))}
-          </div>
+          </Reveal>
         </Container>
       </div>
     </section>

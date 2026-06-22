@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "./Container";
+import { Reveal } from "./Reveal";
 import { assets } from "@/lib/assets";
 
 type Token = {
@@ -45,11 +46,13 @@ export function TokenEcosystem() {
   return (
     <section className="relative py-20 lg:py-24">
       <Container>
-        <h2 className="text-[28px] leading-tight tracking-[-1.28px] sm:text-[32px]">
-          The token ecosystem
-        </h2>
+        <Reveal>
+          <h2 className="text-[28px] leading-tight tracking-[-1.28px] sm:text-[32px]">
+            The token ecosystem
+          </h2>
+        </Reveal>
 
-        <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        <Reveal className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4" stagger={0.12}>
           {tokens.map((t) => (
             <div key={t.title}>
               <span className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-3.5 py-2.5">
@@ -65,7 +68,7 @@ export function TokenEcosystem() {
               </p>
             </div>
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

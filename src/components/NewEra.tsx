@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { Container } from "./Container";
+import { Reveal } from "./Reveal";
 import { assets } from "@/lib/assets";
 
 export function NewEra() {
   return (
     <section id="lifestyle" className="relative border-y border-white/10 py-20 lg:py-24">
       <Container>
+       <Reveal stagger={0.12}>
         <h2 className="max-w-[589px] text-[34px] leading-tight tracking-[-1.44px] sm:text-[40px] lg:text-[48px]">
           A new era of digital agencies
         </h2>
@@ -29,6 +31,7 @@ export function NewEra() {
             WhatsApp
           </a>
         </div>
+       </Reveal>
       </Container>
     </section>
   );
