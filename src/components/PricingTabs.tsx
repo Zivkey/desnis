@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { Calendar, Pause } from "lucide-react";
 import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 
@@ -17,50 +18,142 @@ const features = [
   "Active as long as you subscribe",
 ];
 
-// Both tabs intentionally show the same three cards — switching just replays
-// the appear animation.
-const tiers = [
-  { name: "Startup Light", setup: "$500", monthly: "+ $250 / month (24 mo. contract)" },
-  { name: "Startup Light", setup: "$500", monthly: "+ $250 / month (24 mo. contract)" },
-  { name: "Startup Light", setup: "$500", monthly: "+ $250 / month (24 mo. contract)" },
+const LOREM = "Lorem ipsum dolor sit amet consectetur.";
+
+const oneTime = [
+  { name: "Landing Page", price: "$1000", pages: ["1 pager"] },
+  { name: "Premium", price: "$5000", pages: ["5 pages", "10 pages", "15 pages+"] },
 ];
 
-const tabs = ["Launch your site", "Grow your business"];
+const hourPlans = ["Starter", "Growth", "Scale"];
+
+const tabs = ["One-Time", "Monthly"];
 
 type Rect = { left: number; top: number; width: number; height: number };
 
-export function PricingTabs() {
-  const [active, setActive] = useState(0);
+/**
+ * Segmented control with a white pill that slides to the selected option and a
+ * faint outline that follows the pointer. Shared by the billing toggle and the
+ * per-card selectors.
+ */
+function SlidingTabs({
+  options,
+  value,
+  onChange,
+  trackClassName = "",
+  itemClassName = "",
+  radius = "rounded-lg",
+  equal = false,
+  unselectedText = "text-white",
+}: {
+  options: string[];
+  value: number;
+  onChange: (i: number) => void;
+  trackClassName?: string;
+  itemClassName?: string;
+  radius?: string;
+  equal?: boolean;
+  unselectedText?: string;
+}) {
   const [hovered, setHovered] = useState<number | null>(null);
   const [rects, setRects] = useState<Rect[]>([]);
-  const ready = rects.length === tabs.length;
-
-  const toggleRef = useRef<HTMLDivElement>(null);
+  const ready = rects.length === options.length;
+  const trackRef = useRef<HTMLDivElement>(null);
   const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const firstRun = useRef(true);
 
-  // Measure each button so the filled pill and the sliding border can be
-  // positioned exactly, even though the two labels have different widths.
   useLayoutEffect(() => {
     const measure = () => {
-      const next = btnRefs.current.map((b) =>
-        b ? { left: b.offsetLeft, top: b.offsetTop, width: b.offsetWidth, height: b.offsetHeight } : null,
-      );
-      if (next.every(Boolean)) setRects(next as Rect[]);
+      const next = btnRefs.current
+        .slice(0, options.length)
+        .map((b) =>
+          b ? { left: b.offsetLeft, top: b.offsetTop, width: b.offsetWidth, height: b.offsetHeight } : null,
+        );
+      if (next.length === options.length && next.every(Boolean)) setRects(next as Rect[]);
     };
     measure();
     const ro = new ResizeObserver(measure);
-    if (toggleRef.current) ro.observe(toggleRef.current);
+    if (trackRef.current) ro.observe(trackRef.current);
     return () => ro.disconnect();
-  }, []);
+  }, [options.length]);
+
+  const fill = rects[value];
+  const border = rects[hovered ?? value];
+  const t = ready ? "transition-all duration-300 ease-out" : "";
+
+  return (
+    <div ref={trackRef} className={`relative flex items-center ${trackClassName}`}>
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute bg-white ${radius} ${t}`}
+        style={fill ? { left: fill.left, top: fill.top, width: fill.width, height: fill.height } : { opacity: 0 }}
+      />
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute border border-white/45 ${radius} ${t}`}
+        style={
+          border ? { left: border.left, top: border.top, width: border.width, height: border.height } : { opacity: 0 }
+        }
+      />
+      {options.map((opt, i) => (
+        <button
+          key={opt}
+          ref={(el) => {
+            btnRefs.current[i] = el;
+          }}
+          type="button"
+          aria-pressed={value === i}
+          onClick={() => onChange(i)}
+          onMouseEnter={() => setHovered(i)}
+          onMouseLeave={() => setHovered(null)}
+          onFocus={() => setHovered(i)}
+          onBlur={() => setHovered(null)}
+          className={`relative z-10 whitespace-nowrap text-center transition-colors ${radius} ${
+            equal ? "flex-1" : ""
+          } ${itemClassName} ${value === i ? "text-ink" : unselectedText}`}
+        >
+          {opt}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function Features() {
+  return (
+    <ul className="mt-8 space-y-6">
+      {features.map((f) => (
+        <li key={f} className="flex items-center gap-2">
+          <Image src={assets.iconCheck} alt="" width={20} height={20} />
+          <span className="text-sm text-white/90">{f}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function TokensLine({ amount, rate }: { amount: string; rate: string }) {
+  return (
+    <p className="mt-2 text-sm font-light text-white/65">
+      Includes <span className="text-white">{amount}</span> ({rate})
+    </p>
+  );
+}
+
+export function PricingTabs() {
+  const [active, setActive] = useState(0);
+  const [premiumPages, setPremiumPages] = useState(0);
+  const [hourPlan, setHourPlan] = useState(0);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const firstRun = useRef(true);
+
+  const cardEls = () =>
+    cardsRef.current ? Array.from(cardsRef.current.querySelectorAll<HTMLElement>("[data-price-card]")) : [];
 
   // Entrance reveal when the cards scroll into view.
   useGSAP(
     () => {
-      const cards = cardsRef.current ? Array.from(cardsRef.current.children) : [];
       gsap.fromTo(
-        cards,
+        cardEls(),
         { opacity: 0, y: 24 },
         {
           opacity: 1,
@@ -75,17 +168,15 @@ export function PricingTabs() {
     { scope: cardsRef },
   );
 
-  // Replay the appear animation every time the active tab changes (skip the
-  // very first run so it doesn't fight the scroll entrance above).
+  // Replay the appear animation whenever the billing tab changes.
   useGSAP(
     () => {
       if (firstRun.current) {
         firstRun.current = false;
         return;
       }
-      const cards = cardsRef.current ? Array.from(cardsRef.current.children) : [];
       gsap.fromTo(
-        cards,
+        cardEls(),
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: "power2.out" },
       );
@@ -93,81 +184,162 @@ export function PricingTabs() {
     { dependencies: [active], scope: cardsRef },
   );
 
-  const fill = rects[active];
-  const border = rects[hovered ?? active];
-  const indicatorTransition = ready ? "transition-all duration-300 ease-out" : "";
+  const info = [
+    {
+      title: "Token ecosystem",
+      text: "1 Token = 1 Hour",
+      icon: (
+        <span className="flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-600">
+          <Image src={assets.logoMark} alt="" width={16} height={16} className="h-3.5 w-3.5 max-w-none" />
+        </span>
+      ),
+    },
+    {
+      title: "Pause anytime",
+      text: "Temporarily pause your subscription anytime, no sweat.",
+      icon: (
+        <span className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white">
+          <Pause size={15} fill="currentColor" strokeWidth={0} />
+        </span>
+      ),
+    },
+    {
+      title: "Try it for a week",
+      text: "Not loving it after a week? Get 75% back, no questions asked.",
+      icon: (
+        <span className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white">
+          <Calendar size={15} />
+        </span>
+      ),
+    },
+  ];
 
   return (
     <>
-      {/* Segmented toggle */}
+      {/* Billing toggle */}
       <div className="mt-8 flex justify-start">
-        <div ref={toggleRef} className="glass relative flex items-center gap-1 rounded-xl p-1">
-          {/* Filled pill sits on the selected tab */}
-          <span
-            aria-hidden
-            className={`pointer-events-none absolute rounded-xl bg-white ${indicatorTransition}`}
-            style={fill ? { left: fill.left, top: fill.top, width: fill.width, height: fill.height } : { opacity: 0 }}
-          />
-          {/* Outline follows the pointer, resting on the selected tab */}
-          <span
-            aria-hidden
-            className={`pointer-events-none absolute rounded-xl border border-white/45 ${indicatorTransition}`}
-            style={
-              border ? { left: border.left, top: border.top, width: border.width, height: border.height } : { opacity: 0 }
-            }
-          />
-          {tabs.map((label, i) => (
-            <button
-              key={label}
-              ref={(el) => {
-                btnRefs.current[i] = el;
-              }}
-              type="button"
-              aria-pressed={active === i}
-              onClick={() => setActive(i)}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}
-              onFocus={() => setHovered(i)}
-              onBlur={() => setHovered(null)}
-              className={`relative z-10 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-sm font-medium tracking-[-0.42px] transition-colors ${
-                active === i ? "text-ink" : "text-white"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+        <SlidingTabs
+          options={tabs}
+          value={active}
+          onChange={setActive}
+          trackClassName="glass gap-1 rounded-xl p-1"
+          itemClassName="px-3.5 py-2.5 text-sm font-medium tracking-[-0.42px]"
+          radius="rounded-xl"
+        />
       </div>
 
-      {/* Cards */}
-      <div ref={cardsRef} className="mt-12 grid gap-4 md:grid-cols-3">
-        {tiers.map((t, i) => (
-          <article key={i} className="glass flex flex-col rounded-2xl p-8 text-left">
-            <h3 className="text-2xl tracking-[-0.96px]">{t.name}</h3>
-            <p className="mt-2 max-w-[312px] text-base font-light leading-6 text-white/65">
-              Perfect for new businesses needing a premium online presence fast.
-            </p>
+      <div ref={cardsRef} className="mt-12 space-y-4">
+        {active === 0 ? (
+          /* ---------- One-Time ---------- */
+          <div className="grid gap-4 md:grid-cols-2">
+            {oneTime.map((t, i) => (
+              <article
+                data-price-card
+                key={t.name}
+                className="glass flex flex-col rounded-2xl p-8 text-left"
+              >
+                <h3 className="text-2xl tracking-[-0.96px]">{t.name}</h3>
+                <p className="mt-2 text-base font-light leading-6 text-white/65">{LOREM}</p>
+                <span className="mt-6 text-[40px] leading-none tracking-[-1.6px]">{t.price}</span>
 
-            <div className="mt-6 flex items-end gap-2">
-              <span className="text-[32px] leading-10 tracking-[-1.28px]">{t.setup}</span>
-              <span className="pb-1.5 text-sm font-light text-white/65">Setup fee</span>
+                {t.pages.length < 2 ? (
+                  <div className="mt-6 rounded-xl bg-white/[0.06] p-1">
+                    <div className="rounded-lg py-2.5 text-center text-sm text-white/45">{t.pages[0]}</div>
+                  </div>
+                ) : (
+                  <SlidingTabs
+                    options={t.pages}
+                    value={premiumPages}
+                    onChange={setPremiumPages}
+                    trackClassName="mt-6 bg-white/[0.06] rounded-xl p-1"
+                    itemClassName="py-2.5 text-sm"
+                    equal
+                    unselectedText="text-white/55"
+                  />
+                )}
+
+                <button className={flowHover("light", "mt-2.5 w-full rounded-xl py-3 text-sm font-semibold")}>
+                  Reach out
+                </button>
+                <Features />
+              </article>
+            ))}
+          </div>
+        ) : (
+          /* ---------- Monthly ---------- */
+          <>
+            <div className="grid gap-4 md:grid-cols-3">
+              {/* Desnis Club */}
+              <article
+                data-price-card
+                className="glass relative flex flex-col rounded-2xl p-8 text-left md:col-span-2"
+              >
+                {/* Decorative membership card — rises out of the top of the card,
+                    sitting beside the title (desktop only). */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -top-10 right-8 hidden h-[235px] w-[365px] rotate-[-7deg] rounded-2xl bg-[linear-gradient(135deg,#efefef,#bdbdbd)] shadow-[0_24px_70px_rgba(0,0,0,0.5)] lg:block"
+                />
+                <h3 className="text-2xl tracking-[-0.96px]">Desnis Club</h3>
+                <p className="mt-2 max-w-[320px] text-base font-light leading-6 text-white/65">{LOREM}</p>
+                <div className="mt-6 flex items-end gap-2">
+                  <span className="text-[40px] leading-none tracking-[-1.6px]">$2500</span>
+                  <span className="pb-1 text-lg font-light text-white/65">/mo</span>
+                </div>
+                <TokensLine amount="50 Tokens" rate="$50 = 1h" />
+
+                <div className="mt-auto">
+                  <button className={flowHover("light", "mt-8 w-full rounded-xl py-3 text-sm font-semibold")}>
+                    Reach out
+                  </button>
+                  <Features />
+                </div>
+              </article>
+
+              {/* Hour Package */}
+              <article data-price-card className="glass flex flex-col rounded-2xl p-8 text-left">
+                <h3 className="text-2xl tracking-[-0.96px]">Hour Package</h3>
+                <p className="mt-2 text-base font-light leading-6 text-white/65">{LOREM}</p>
+                <span className="mt-6 text-[40px] leading-none tracking-[-1.6px]">$500</span>
+                <TokensLine amount="5 Tokens" rate="$100 = 1h" />
+
+                <SlidingTabs
+                  options={hourPlans}
+                  value={hourPlan}
+                  onChange={setHourPlan}
+                  trackClassName="mt-6 bg-white/[0.06] rounded-xl p-1"
+                  itemClassName="py-2.5 text-sm"
+                  equal
+                  unselectedText="text-white/55"
+                />
+
+                <div className="mt-auto">
+                  <button className={flowHover("light", "mt-8 w-full rounded-xl py-3 text-sm font-semibold")}>
+                    Reach out
+                  </button>
+                  <Features />
+                </div>
+              </article>
             </div>
-            <p className="mt-1 text-base font-light text-white">{t.monthly}</p>
 
-            <button className={flowHover("light", "mt-10 w-full rounded-xl py-3 text-sm font-semibold")}>
-              Get Started
-            </button>
-
-            <ul className="mt-8 space-y-6">
-              {features.map((f) => (
-                <li key={f} className="flex items-center gap-2">
-                  <Image src={assets.iconCheck} alt="" width={20} height={20} />
-                  <span className="text-sm text-white/90">{f}</span>
-                </li>
+            {/* Info row */}
+            <div className="grid gap-4 md:grid-cols-3">
+              {info.map((c) => (
+                <article
+                  data-price-card
+                  key={c.title}
+                  className="glass flex min-h-[150px] flex-col justify-between rounded-2xl p-6 text-left"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="text-xl tracking-[-0.4px]">{c.title}</h3>
+                    {c.icon}
+                  </div>
+                  <p className="text-sm font-light leading-6 text-white/65">{c.text}</p>
+                </article>
               ))}
-            </ul>
-          </article>
-        ))}
+            </div>
+          </>
+        )}
       </div>
     </>
   );

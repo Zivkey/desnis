@@ -5,7 +5,6 @@ import { Testimonials } from "@/components/Testimonials";
 import { Services } from "@/components/Services";
 import { NewEra } from "@/components/NewEra";
 import { Pricing } from "@/components/Pricing";
-import { TokenEcosystem } from "@/components/TokenEcosystem";
 import { Footer } from "@/components/Footer";
 import { assets } from "@/lib/assets";
 
@@ -39,7 +38,6 @@ export default function Home() {
         <Pricing />
       </div>
 
-      <TokenEcosystem />
       <Footer />
     </main>
   );
