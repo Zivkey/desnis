@@ -32,10 +32,10 @@ export function Pricing() {
         {/* Segmented toggle */}
         <div className="mt-8 flex justify-start">
           <div className="glass flex items-center gap-1 rounded-xl p-1">
-            <button className="rounded-xl bg-white px-3.5 py-2.5 text-sm font-medium tracking-[-0.42px] text-ink">
+            <button className="rounded-xl bg-white px-3.5 py-2.5 text-sm font-medium tracking-[-0.42px] text-ink transition-opacity hover:opacity-90">
               Launch your site
             </button>
-            <button className="rounded-xl px-3.5 py-2.5 text-sm font-medium tracking-[-0.42px] text-white">
+            <button className="rounded-xl px-3.5 py-2.5 text-sm font-medium tracking-[-0.42px] text-white transition-colors hover:bg-white/10">
               Grow your business
             </button>
           </div>
@@ -63,7 +63,7 @@ export function Pricing() {
               </div>
               <p className="mt-1 text-base font-light text-white">{t.monthly}</p>
 
-              <button className="glass-soft mt-10 rounded-xl py-3 text-sm font-semibold text-white transition-colors hover:bg-white/15">
+              <button className="glass-soft mt-10 rounded-xl py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-ink">
                 Get Started
               </button>
 

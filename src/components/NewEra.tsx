@@ -17,7 +17,7 @@ export function NewEra() {
         <div className="mt-8 flex items-center gap-2">
           <a
             href="#contact"
-            className="rounded-xl bg-white px-6 py-3 text-base font-medium tracking-[-0.32px] text-ink transition-opacity hover:opacity-90"
+            className="rounded-xl bg-white px-6 py-3 text-base font-medium tracking-[-0.32px] text-ink transition-colors hover:bg-black hover:text-white"
           >
             Get in touch
           </a>

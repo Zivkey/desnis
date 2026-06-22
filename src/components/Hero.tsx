@@ -37,7 +37,7 @@ export function Hero() {
         {/* "Meet the team" pill */}
         <a
           href="#"
-          className="inline-flex items-center gap-2 rounded-full border border-white/12 py-2 pl-2 pr-4"
+          className="inline-flex items-center gap-2 rounded-full border border-white/12 py-2 pl-2 pr-4 transition-colors hover:border-white/30 hover:bg-white/[0.06]"
         >
           <span className="flex items-center">
             <span className="size-[26px] overflow-hidden rounded-full border-[0.8px] border-white bg-white">
@@ -89,7 +89,7 @@ export function Hero() {
           <div className="flex h-[60px] flex-1 items-center rounded-xl bg-white/10 px-5 text-sm text-white/35">
             yourwebsite.com
           </div>
-          <button className="h-[60px] shrink-0 rounded-xl bg-white px-6 text-sm font-bold text-ink transition-opacity hover:opacity-90">
+          <button className="h-[60px] shrink-0 rounded-xl bg-white px-6 text-sm font-bold text-ink transition-colors hover:bg-black hover:text-white">
             Let&rsquo;s analyze
           </button>
         </div>
@@ -107,7 +107,7 @@ export function Hero() {
               {cards.map((c, i) => (
                 <div
                   key={i}
-                  className="relative h-[398px] w-[278px] shrink-0 overflow-hidden rounded-2xl bg-accent-dark"
+                  className="relative h-[398px] w-[278px] shrink-0 overflow-hidden rounded-2xl bg-accent-dark transition duration-300 hover:scale-[1.02] hover:brightness-110"
                 >
                   <Image
                     src={c.src}

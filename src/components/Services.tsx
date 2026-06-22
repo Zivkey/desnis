@@ -4,7 +4,7 @@ import { assets } from "@/lib/assets";
 
 function LearnMore() {
   return (
-    <button className="glass-soft rounded-xl px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/15">
+    <button className="glass-soft rounded-xl px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-ink">
       Learn more
     </button>
   );

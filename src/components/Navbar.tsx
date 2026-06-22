@@ -14,7 +14,7 @@ export function Navbar() {
       <Container className="flex items-center justify-between py-6">
         {/* Logo + left-aligned nav */}
         <div className="flex items-center gap-9">
-          <a href="#" className="flex size-12 items-center justify-center rounded-lg bg-white/5">
+          <a href="#" className="flex size-12 items-center justify-center rounded-lg bg-white/5 transition-colors hover:bg-white/10">
             <Image src={assets.logoMark} alt="DES/NIS" width={16} height={16} />
           </a>
 
@@ -31,7 +31,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <a
             href="#contact"
-            className="flex items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-medium tracking-[-0.32px] text-ink transition-opacity hover:opacity-90"
+            className="flex items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-medium tracking-[-0.32px] text-ink transition-colors hover:bg-black hover:text-white"
           >
             Get in touch
           </a>

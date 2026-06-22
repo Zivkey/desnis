@@ -31,7 +31,7 @@ export function Footer() {
 
           <a
             href="#contact"
-            className="glass-soft flex w-full max-w-[278px] items-center justify-between rounded-xl px-3.5 py-3"
+            className="glass-soft flex w-full max-w-[278px] items-center justify-between rounded-xl px-3.5 py-3 transition-colors hover:bg-white/15"
           >
             <span className="flex items-center">
               <span className="size-6 overflow-hidden rounded-full border-[0.75px] border-white bg-white">
