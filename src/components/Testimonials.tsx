@@ -2,19 +2,8 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
+import { OutliersLogo } from "./BrandLogos";
 import { assets } from "@/lib/assets";
-
-function OutliersLogo() {
-  return (
-    <span className="relative inline-block h-6 w-[118px]">
-      <span className="absolute left-0 top-0 flex h-6 w-[21px] items-center justify-center">
-        <Image src={assets.outliersIconB} alt="" width={12} height={21} className="-rotate-[31deg]" />
-      </span>
-      <Image src={assets.outliersIconA} alt="" width={15} height={14} className="absolute left-[3px] top-[5px]" />
-      <Image src={assets.outliersWordmark} alt="The Outliers" width={99} height={14} className="absolute left-[19px] top-[5px]" />
-    </span>
-  );
-}
 
 type Item = {
   quote: string;

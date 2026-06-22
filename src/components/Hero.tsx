@@ -1,20 +1,20 @@
 import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
+import { AltaNapaLogo, CompassLogo, HessenLogo, OutliersLogo } from "./BrandLogos";
 import { assets } from "@/lib/assets";
 
+// Four unique cards shown in a repeating 1,2,3,4 sequence.
 const cards = [
-  { src: assets.cardFrame13, alt: "Project showcase" },
-  { src: assets.cardWebDesign, alt: "Web design project" },
-  { src: assets.cardMockup, alt: "Brand mockup" },
-  { src: assets.cardFrame13, alt: "Editorial project" },
-  { src: assets.cardGreenery, alt: "Alta Napa premium wine" },
-  { src: assets.cardMockup, alt: "Product mockup" },
+  { src: assets.cardFrame13, alt: "Outliers", logo: <OutliersLogo />, color: "#43201c" },
+  { src: assets.cardWebDesign, alt: "Hessen Kräuter", logo: <HessenLogo />, color: "#2c6db4" },
+  { src: assets.cardMockup, alt: "Compass Energy Solutions", logo: <CompassLogo />, color: "#41474d" },
+  { src: assets.cardGreenery, alt: "Alta Napa premium wine", logo: <AltaNapaLogo />, color: "#3c4a2b" },
 ];
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden pt-28 lg:pt-32">
+    <section className="relative isolate overflow-hidden pt-32 lg:pt-40">
       {/* Night-sky backdrop for the first section */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[880px]">
         <Image
@@ -108,19 +108,35 @@ export function Hero() {
               className="flex shrink-0 gap-6 pr-6"
               aria-hidden={dup === 1}
             >
-              {cards.map((c, i) => (
-                <div
+              {/* Repeat the 1,2,3,4 set so each group is wider than the viewport
+                  and the loop has no gap. */}
+              {[...cards, ...cards].map((c, i) => (
+                <a
                   key={i}
-                  className="relative h-[398px] w-[278px] shrink-0 overflow-hidden rounded-2xl bg-accent-dark transition duration-300 hover:scale-[1.02] hover:brightness-110"
+                  href="#our-work"
+                  style={{ backgroundColor: c.color }}
+                  className="group/card relative block h-[398px] w-[278px] shrink-0 overflow-hidden rounded-2xl transition-transform duration-300 hover:scale-[1.02]"
                 >
+                  {/* Scene image — fades out on hover to reveal the brand colour */}
                   <Image
                     src={c.src}
                     alt={c.alt}
                     fill
                     sizes="278px"
-                    className="object-cover"
+                    className="object-cover transition-opacity duration-500 group-hover/card:opacity-0"
                   />
-                </div>
+                  {/* Brand logo — sits at the top, slides to centre on hover */}
+                  <div className="absolute inset-x-0 top-7 z-10 flex justify-center transition-all duration-500 ease-out group-hover/card:top-[38%] group-hover/card:-translate-y-1/2 group-hover/card:scale-110">
+                    {c.logo}
+                  </div>
+                  {/* Clickable affordance */}
+                  <span className="absolute bottom-4 right-4 z-10 flex size-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors duration-300 group-hover/card:bg-white group-hover/card:text-ink">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <line x1="7" y1="17" x2="17" y2="7" />
+                      <polyline points="7 7 17 7 17 17" />
+                    </svg>
+                  </span>
+                </a>
               ))}
             </div>
           ))}

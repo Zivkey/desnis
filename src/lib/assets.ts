@@ -29,11 +29,13 @@ export const assets = {
   // "What we do" preview image
   whatWeDo: `${base}/adb3c92bbc94f5a339aea9626764b73446911167.png`,
 
-  // Testimonial brand logos
+  // Brand logos (testimonials + showcase cards)
   outliersWordmark: `${base}/1c3bc1e4340eb70b4b21b17362fb63adecda100d.svg`,
   outliersIconA: `${base}/a9845a4bb5bff89cd8af643e4540e64fb8798eba.svg`,
   outliersIconB: `${base}/18a9feea4aa8915f7c53a13b535fb8fe973c1ab5.svg`,
   compassLogo: `${base}/84bdc4e60bcf251a5d9e19600098c9b730f66a89.png`,
+  hessenLogo: `${base}/cf6d21e1bebaa6897d66f2e7ca1b4daa37399057.png`,
+  altaBird: `${base}/8d89865aab081bebed61a10f6f6b0b669d98438e.svg`,
 
   // Token ecosystem ad creatives
   adCreative1: `${base}/992f7a4358d89ea7516aa6848b6d21f0d6e4182a.png`,
