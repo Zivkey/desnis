@@ -6,10 +6,10 @@ import { assets } from "@/lib/assets";
 
 // Four unique cards shown in a repeating 1,2,3,4 sequence.
 const cards = [
-  { src: assets.cardFrame13, alt: "Outliers", logo: <OutliersLogo />, color: "#43201c" },
-  { src: assets.cardWebDesign, alt: "Hessen Kräuter", logo: <HessenLogo />, color: "#2c6db4" },
-  { src: assets.cardMockup, alt: "Compass Energy Solutions", logo: <CompassLogo />, color: "#41474d" },
-  { src: assets.cardGreenery, alt: "Alta Napa premium wine", logo: <AltaNapaLogo />, color: "#3c4a2b" },
+  { src: assets.cardFrame13, alt: "Outliers", href: "https://www.joinoutliers.com/", logo: <OutliersLogo />, color: "#43201c" },
+  { src: assets.cardWebDesign, alt: "Hessen Kräuter", href: "https://www.hessenkraeuter.de/", logo: <HessenLogo />, color: "#2c6db4" },
+  { src: assets.cardMockup, alt: "Compass Energy Solutions", href: "https://www.compassenergy.solar/", logo: <CompassLogo />, color: "#41474d" },
+  { src: assets.cardGreenery, alt: "Alta Napa premium wine", href: "https://www.altanapawines.com/", logo: <AltaNapaLogo />, color: "#3c4a2b" },
 ];
 
 export function Hero() {
@@ -103,8 +103,11 @@ export function Hero() {
 
       {/* Showcase carousel — auto-scrolls, pauses on hover, bleeds off both edges */}
       <Reveal y={20} delay={0.15}>
-       <div id="our-work" className="group mt-14 overflow-hidden">
-        <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
+       <div id="our-work" className="group mt-14">
+        {/* Clip horizontally for the marquee, but pad vertically (and cancel it
+            with a negative margin) so a card's hover scale isn't clipped top/bottom. */}
+        <div className="overflow-hidden py-3 -my-3">
+         <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
           {[0, 1].map((dup) => (
             <div
               key={dup}
@@ -116,7 +119,10 @@ export function Hero() {
               {[...cards, ...cards].map((c, i) => (
                 <a
                   key={i}
-                  href="#our-work"
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit the ${c.alt} website (opens in a new tab)`}
                   style={{ backgroundColor: c.color }}
                   className="group/card relative block h-[398px] w-[278px] shrink-0 overflow-hidden rounded-2xl transition-transform duration-300 hover:scale-[1.02]"
                 >
@@ -143,6 +149,7 @@ export function Hero() {
               ))}
             </div>
           ))}
+         </div>
         </div>
        </div>
       </Reveal>
