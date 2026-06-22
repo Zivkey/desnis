@@ -64,8 +64,9 @@ export function SiteAnalyzer() {
   }
 
   function closeModal() {
+    // Clear the hero input once the user has completed the flow.
+    if (modal === "done") setUrl("");
     setModal("closed");
-    // Reset the details once the flow is finished.
     setIndustry("");
     setGoals([]);
   }
