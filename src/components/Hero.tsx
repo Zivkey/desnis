@@ -1,17 +1,9 @@
 import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
-import { AltaNapaLogo, CompassLogo, HessenLogo, OutliersLogo } from "./BrandLogos";
+import { ShowcaseCarousel } from "./ShowcaseCarousel";
 import { SiteAnalyzer } from "./SiteAnalyzer";
 import { assets } from "@/lib/assets";
-
-// Four unique cards shown in a repeating 1,2,3,4 sequence.
-const cards = [
-  { src: assets.cardFrame13, alt: "Outliers", href: "https://www.joinoutliers.com/", logo: <OutliersLogo />, color: "#43201c" },
-  { src: assets.cardWebDesign, alt: "Hessen Kräuter", href: "https://www.hessenkraeuter.de/", logo: <HessenLogo />, color: "#2c6db4" },
-  { src: assets.cardMockup, alt: "Compass Energy Solutions", href: "https://www.compassenergy.solar/", logo: <CompassLogo />, color: "#41474d" },
-  { src: assets.cardGreenery, alt: "Alta Napa premium wine", href: "https://www.altanapawines.com/", logo: <AltaNapaLogo />, color: "#3c4a2b" },
-];
 
 export function Hero() {
   return (
@@ -95,59 +87,9 @@ export function Hero() {
        </Reveal>
       </Container>
 
-      {/* Showcase carousel — auto-scrolls, pauses on hover, bleeds off both edges */}
+      {/* Showcase carousel — auto-scrolls, drag to scrub, releases back to auto */}
       <Reveal y={20} delay={0.15}>
-       <div id="our-work" className="group mt-14">
-        {/* Clip horizontally for the marquee, but pad vertically so a card's
-            hover scale isn't clipped top/bottom. Only the top padding is pulled
-            back with a negative margin; the bottom stays as real space so the
-            hero section's own overflow-hidden doesn't clip the scaled card. */}
-        <div className="overflow-hidden py-3 -mt-3">
-         <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
-          {[0, 1].map((dup) => (
-            <div
-              key={dup}
-              className="flex shrink-0 gap-6 pr-6"
-              aria-hidden={dup === 1}
-            >
-              {/* Repeat the 1,2,3,4 set so each group is wider than the viewport
-                  and the loop has no gap. */}
-              {[...cards, ...cards].map((c, i) => (
-                <a
-                  key={i}
-                  href={c.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit the ${c.alt} website (opens in a new tab)`}
-                  style={{ backgroundColor: c.color }}
-                  className="group/card relative block h-[398px] w-[278px] shrink-0 overflow-hidden rounded-2xl transition-transform duration-300 hover:scale-[1.02]"
-                >
-                  {/* Scene image — fades out on hover to reveal the brand colour */}
-                  <Image
-                    src={c.src}
-                    alt={c.alt}
-                    fill
-                    sizes="278px"
-                    className="object-cover transition-opacity duration-500 group-hover/card:opacity-0"
-                  />
-                  {/* Brand logo — sits at the top, slides to centre on hover */}
-                  <div className="absolute inset-x-0 top-7 z-10 flex justify-center transition-all duration-500 ease-out group-hover/card:top-[38%] group-hover/card:-translate-y-1/2 group-hover/card:scale-110">
-                    {c.logo}
-                  </div>
-                  {/* Clickable affordance */}
-                  <span className="absolute bottom-4 right-4 z-10 flex size-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors duration-300 group-hover/card:bg-white group-hover/card:text-ink">
-                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                  </span>
-                </a>
-              ))}
-            </div>
-          ))}
-         </div>
-        </div>
-       </div>
+        <ShowcaseCarousel />
       </Reveal>
     </section>
   );
