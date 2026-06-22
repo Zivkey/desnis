@@ -17,14 +17,17 @@ export function Hero() {
     <section className="relative isolate overflow-hidden pt-32 lg:pt-40">
       {/* Night-sky backdrop for the first section */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[880px]">
-        <Image
-          src={assets.nightSky}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={assets.heroVideoPoster}
+          className="absolute inset-0 size-full object-cover"
+        >
+          <source src={assets.heroVideoWebm} type="video/webm" />
+          <source src={assets.heroVideoMp4} type="video/mp4" />
+        </video>
         {/* Blue-grey tint to match the Figma overlay */}
         <div className="absolute inset-0 bg-[rgb(31,44,50)]/75" />
         {/* Radial vignette + fade into the page background */}

@@ -8,6 +8,11 @@ export const assets = {
   dunescape: `${base}/fff2c558c32c9c4af91ce9460a11358b86c7bdde.png`,
   nightSky: `${base}/c23a4cdb73340efc099db73b572d73413e113587.png`,
 
+  // Hero background video (converted from the source GIF)
+  heroVideoWebm: `${base}/hero-video.webm`,
+  heroVideoMp4: `${base}/hero-video.mp4`,
+  heroVideoPoster: `${base}/hero-video-poster.jpg`,
+
   // Avatars / people
   avatar1: `${base}/5f990a24a24152550f2716889342206c091b32ae.png`,
   avatar2: `${base}/d27c7b900ab46fe66c41ba770bcad8fe69d96d75.png`,
