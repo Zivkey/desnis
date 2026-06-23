@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -356,9 +357,12 @@ export function PricingTabs() {
                   />
                 )}
 
-                <button className={flowHover("light", "mt-2.5 w-full rounded-xl py-3 text-sm font-semibold")}>
+                <Link
+                  href={`/contact?plan=${t.name.toLowerCase().replace(/\s+/g, "-")}`}
+                  className={flowHover("light", "mt-2.5 w-full rounded-xl py-3 text-sm font-semibold")}
+                >
                   Reach out
-                </button>
+                </Link>
                 <Features items={t.features} />
               </article>
             ))}
@@ -387,9 +391,12 @@ export function PricingTabs() {
                 <TokensLine amount="50 Tokens" rate="$50 = 1h" />
 
                 <div className="mt-auto">
-                  <button className={flowHover("light", "mt-8 w-full rounded-xl py-3 text-sm font-semibold")}>
+                  <Link
+                    href="/contact?plan=desnis-club"
+                    className={flowHover("light", "mt-8 w-full rounded-xl py-3 text-sm font-semibold")}
+                  >
                     Reach out
-                  </button>
+                  </Link>
                   <Features items={club.benefits} />
                 </div>
               </article>
@@ -418,9 +425,12 @@ export function PricingTabs() {
                 />
 
                 <div className="mt-auto">
-                  <button className={flowHover("light", "mt-8 w-full rounded-xl py-3 text-sm font-semibold")}>
+                  <Link
+                    href="/contact?plan=hour-package"
+                    className={flowHover("light", "mt-8 w-full rounded-xl py-3 text-sm font-semibold")}
+                  >
                     Reach out
-                  </button>
+                  </Link>
                   <Features items={hourTiers[hourPlan].benefits} />
                 </div>
               </article>
