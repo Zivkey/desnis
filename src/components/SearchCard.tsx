@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
+import { assets } from "@/lib/assets";
 
 gsap.registerPlugin(TextPlugin);
 
-const TITLE = "Create Mockups - Balsamiq Wireframes";
+const TITLE = "Custom Websites That Rank — DES/NIS";
 const DESC =
-  "It’s like sketching on a whiteboard. Go On, Unleash Your Creativity! Life’s too short for bad software. Try Balsamiq Wireframes for Free!";
+  "One hands-on team for your entire web presence. We design, build, and optimize fast, custom sites that rank on Google and AI search — and turn visitors into clients.";
 
 /* Frosted Google-style search result (SEO & AEO column) with a looping typewriter */
 export function SearchCard() {
@@ -41,11 +43,11 @@ export function SearchCard() {
       <div ref={headerRef}>
         <p className="text-[8px] text-white/35">Environ 105 000 000 résultats (0,43 secondes)</p>
         <div className="mt-2.5 flex items-center gap-1.5">
-          <span className="size-3 shrink-0 rounded-full bg-gradient-to-br from-fuchsia-500 to-rose-500" />
+          <Image src={assets.tokenEcosystemIcon} alt="" width={12} height={12} className="size-3 shrink-0 rounded-full" />
           <div className="leading-tight">
-            <p className="text-[8px] text-white/75">Nom du site</p>
+            <p className="text-[8px] text-white/75">DES/NIS</p>
             <p className="text-[7px] text-white/75">
-              <span className="font-bold">Annonce</span> · www.balsamiq.com/
+              <span className="font-bold">Annonce</span> · www.desnis.com/
             </p>
           </div>
         </div>

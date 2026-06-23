@@ -36,8 +36,9 @@ export function Services() {
             What we do
           </h2>
           <p className="mt-6 max-w-[474px] text-lg font-light leading-7 text-white/65">
-            Lorem ipsum dolor sit amet consectetur. Metus suscipit diam et quis
-            ipsum adipiscing tortor lacus.
+            One team for your entire web presence. We design and build it, get it
+            ranking on Google and AI search, then create the content that keeps it
+            growing.
           </p>
         </Reveal>
       </Container>
