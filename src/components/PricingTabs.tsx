@@ -219,9 +219,13 @@ export function PricingTabs() {
       title: "Token ecosystem",
       text: "1 Token = 1 Hour",
       icon: (
-        <span className="flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-600">
-          <Image src={assets.logoMark} alt="" width={16} height={16} className="h-3.5 w-3.5 max-w-none" />
-        </span>
+        <Image
+          src={assets.tokenEcosystemIcon}
+          alt=""
+          width={32}
+          height={32}
+          className="size-8 rounded-full"
+        />
       ),
     },
     {

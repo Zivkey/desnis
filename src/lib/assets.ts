@@ -13,6 +13,9 @@ export const assets = {
   heroVideoMp4: `${base}/hero-video.mp4`,
   heroVideoPoster: `${base}/hero-video-poster.jpg`,
 
+  // Testimonial / "from the source" clips
+  sourceClip: `${base}/source-clip.mp4`,
+
   // Avatars / people
   avatar1: `${base}/5f990a24a24152550f2716889342206c091b32ae.png`,
   avatar2: `${base}/d27c7b900ab46fe66c41ba770bcad8fe69d96d75.png`,
@@ -44,6 +47,7 @@ export const assets = {
   altaBird: `${base}/8d89865aab081bebed61a10f6f6b0b669d98438e.svg`,
 
   // Token ecosystem ad creatives
+  tokenEcosystemIcon: `${base}/token-ecosystem-icon.webp`,
   adCreative1: `${base}/992f7a4358d89ea7516aa6848b6d21f0d6e4182a.png`,
   adCreative2: `${base}/10fe626289512765dc776f29a37f065e9456e8fe.png`,
 

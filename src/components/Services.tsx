@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
+import { SocialStack } from "./SocialStack";
 import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 
@@ -36,39 +37,6 @@ function SearchCard() {
         Creativity! Life&rsquo;s too short for bad software. Try Balsamiq
         Wireframes for Free!
       </p>
-    </div>
-  );
-}
-
-/* Two ad creatives, fanned and overlapping (Social Media & Collateral column) */
-function SocialStack() {
-  const card =
-    "absolute w-[124px] overflow-hidden rounded-[10px] border-[3px] border-white/75 bg-white shadow-[0_5px_80px_0_rgba(0,0,0,0.65)]";
-  return (
-    <div className="relative h-[220px] w-[230px]">
-      {/* back card */}
-      <div className={`${card} left-0 top-1 -rotate-[6.68deg]`}>
-        <div className="relative aspect-[124/156]">
-          <Image src={assets.adCreative1} alt="" fill sizes="124px" className="object-cover" />
-          <div className="absolute inset-0 bg-black/25" />
-          <p className="absolute left-2.5 top-1/2 w-[80px] text-base font-bold leading-tight tracking-tight text-white">
-            Pouzdan i tihi rad
-          </p>
-          <p className="absolute bottom-2 left-2.5 text-[5px] text-white">invertolux.com</p>
-        </div>
-      </div>
-      {/* front card */}
-      <div className={`${card} left-[58px] top-11 rotate-[5.46deg]`}>
-        <div className="relative aspect-[124/156]">
-          <Image src={assets.adCreative2} alt="" fill sizes="124px" className="object-cover" />
-          <p className="absolute left-2.5 top-2 w-[72px] text-[13px] font-bold leading-tight tracking-tight text-white">
-            Energetski efikasne.
-          </p>
-          <p className="absolute left-2.5 top-12 w-[74px] text-[6px] leading-tight text-white/75">
-            Inverter klime sa niskom potrošnjom struje
-          </p>
-        </div>
-      </div>
     </div>
   );
 }
