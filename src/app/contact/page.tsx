@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 import { Navbar } from "@/components/Navbar";
+import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
+import { CALENDLY_URL } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Get in touch — DES/NIS",
@@ -49,7 +52,32 @@ export default async function ContactPage({
             Tell us about your project and we’ll get back to you fast.
           </p>
 
-          <div className="mt-12 border-t border-white/10 pt-7 lg:mt-auto">
+          <div className="mt-9 flex w-full max-w-[278px] items-center gap-4 text-sm text-white/40">
+            <span className="h-px flex-1 bg-white/10" />
+            <span>or</span>
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
+
+          <p className="mt-5 text-xl font-light tracking-[-0.4px] text-white/75">Schedule a call</p>
+
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={flowHover("light", "mt-5 w-full max-w-[278px] justify-between rounded-xl px-3.5 py-3")}
+          >
+            <span className="flex items-center">
+              <span className="size-6 overflow-hidden rounded-full border-[0.75px] border-white bg-white">
+                <Image src={assets.avatar1} alt="" width={24} height={24} className="size-full object-cover" />
+              </span>
+              <span className="-ml-1.5 size-6 overflow-hidden rounded-full border-[0.75px] border-white bg-white">
+                <Image src={assets.avatar3} alt="" width={24} height={24} className="size-full object-cover" />
+              </span>
+            </span>
+            <span className="text-sm font-semibold">Book a call</span>
+          </a>
+
+          <div className="mt-12 lg:mt-auto">
             <h2 className="text-lg tracking-[-0.4px]">General contact info</h2>
             <dl className="mt-4 space-y-2 text-base font-light text-white/65">
               <div className="flex gap-2">

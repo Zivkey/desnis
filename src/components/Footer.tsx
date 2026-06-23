@@ -4,6 +4,7 @@ import { Reveal } from "./Reveal";
 import { FooterWordmark } from "./FooterWordmark";
 import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
+import { CALENDLY_URL } from "@/lib/contact";
 
 export function Footer() {
   return (
@@ -34,7 +35,9 @@ export function Footer() {
           </div>
 
           <a
-            href="#contact"
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className={flowHover("light", "w-full max-w-[278px] justify-between rounded-xl px-3.5 py-3")}
           >
             <span className="flex items-center">
@@ -45,7 +48,7 @@ export function Footer() {
                 <Image src={assets.avatar3} alt="" width={24} height={24} className="size-full object-cover" />
               </span>
             </span>
-            <span className="text-sm font-semibold">Reach out</span>
+            <span className="text-sm font-semibold">Book a call</span>
           </a>
         </div>
        </Reveal>
