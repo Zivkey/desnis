@@ -63,4 +63,18 @@ export const assets = {
   playButton: `${base}/5819cfdf3ed9c94c54fc8f455cbc626256c3e256.svg`,
   divider: `${base}/bbb0643461df2d4bab5c9c838a3d07e77d58c13e.svg`,
   footerWordmark: `${base}/9039acec5030f1a19a927a29cdf9c3574301a810.svg`,
+
+  // Showcase carousel cards (screenshot + brand logo per client)
+  showcase: {
+    conroo: { img: `${base}/showcase/conroo.webp`, logo: `${base}/showcase/conroo-logo.svg` },
+    veloura: { img: `${base}/showcase/veloura.webp`, logo: `${base}/showcase/veloura-logo.png` },
+    squidhaus: { img: `${base}/showcase/squidhaus.webp`, logo: `${base}/showcase/squidhaus-logo.png` },
+    incorporify: { img: `${base}/showcase/incorporify.webp`, logo: `${base}/showcase/incorporify-logo.svg` },
+    utr: { img: `${base}/showcase/utr.webp`, logo: `${base}/showcase/utr-logo.svg` },
+    letiti: { img: `${base}/showcase/letiti.webp`, logo: `${base}/showcase/letiti-logo.svg` },
+    vilindent: { img: `${base}/showcase/vilindent.webp`, logo: `${base}/showcase/vilindent-logo.png` },
+    bulkstream: { img: `${base}/showcase/bulkstream.webp`, logo: `${base}/showcase/bulkstream-logo.png` },
+    veneda: { img: `${base}/showcase/veneda.webp`, logo: `${base}/showcase/veneda-logo.png` },
+    invertolux: { img: `${base}/showcase/invertolux-v2.webp`, logo: `${base}/showcase/invertolux-logo.svg` },
+  },
 } as const;
