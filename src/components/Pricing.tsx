@@ -10,9 +10,9 @@ export function Pricing() {
           <h2 className="text-[28px] leading-tight tracking-[-1.28px] sm:text-[32px]">
             Our pricing is simple
           </h2>
-          <p className="mt-4 max-w-[474px] text-lg font-light leading-7 text-white/65">
-            Lorem ipsum dolor sit amet consectetur. Metus suscipit diam et quis
-            ipsum adipiscing tortor lacus.
+          <p className="mt-4 max-w-[580px] text-lg font-light leading-7 text-white/65">
+            Transparent pricing, no hidden fees. Choose a one-time build or a
+            flexible monthly plan, and pay only for what you need.
           </p>
         </Reveal>
 
