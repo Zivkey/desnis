@@ -15,6 +15,13 @@
 
 html {
   scroll-behavior: smooth;
+  /* Clip horizontal overflow on <html> (not <body>) so <html> stays the
+     viewport scroll container. That lets scrollbar-gutter actually reserve
+     space — when set on <body>, the overflow propagation quirk drops it.
+     Reserving the gutter keeps pages that don't scroll (e.g. /contact) from
+     shifting the centered layout sideways. */
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -22,7 +29,6 @@ body {
   color: #ffffff;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 /* Tailwind v4 resets buttons to cursor:default — restore the pointer. */

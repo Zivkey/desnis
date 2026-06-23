@@ -40,6 +40,8 @@ export default async function ContactPage({
 
       {/* Site nav — links return to the matching section on home */}
       <Navbar />
+      {/* Hairline under the navbar — matches the home page */}
+      <div className="absolute inset-x-0 top-24 z-10 h-px bg-white/10" />
 
       <div className="relative z-10 mx-auto grid min-h-screen max-w-[1240px] grid-cols-1 items-stretch gap-12 px-6 pb-12 pt-28 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:pb-16 lg:pt-32">
         {/* Left — copy + contact info */}
