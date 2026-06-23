@@ -26,16 +26,16 @@ const cards: Card[] = [
   { name: "Hessen Kräuter", img: assets.cardWebDesign, href: "https://www.hessenkraeuter.de/", logoNode: <HessenLogo />, color: "#2c6db4" },
   { name: "Compass Energy Solutions", img: assets.cardMockup, href: "https://www.compassenergy.solar/", logoNode: <CompassLogo />, color: "#41474d" },
   { name: "Alta Napa", img: assets.cardGreenery, href: "https://www.altanapawines.com/", logoNode: <AltaNapaLogo />, color: "#3c4a2b" },
-  { name: "CONROO", img: sc.conroo.img, logo: sc.conroo.logo, logoW: 127, logoH: 16, color: "#6084a1" },
-  { name: "Veloura", img: sc.veloura.img, logo: sc.veloura.logo, logoW: 109, logoH: 32, color: "#2d2e2b" },
+  { name: "CONROO", img: sc.conroo.img, href: "https://www.conroo.com/", logo: sc.conroo.logo, logoW: 127, logoH: 16, color: "#6084a1" },
+  { name: "Veloura", img: sc.veloura.img, href: "https://www.veloura.solutions/", logo: sc.veloura.logo, logoW: 109, logoH: 32, color: "#2d2e2b" },
   { name: "SquidHaus", img: sc.squidhaus.img, logo: sc.squidhaus.logo, logoW: 73, logoH: 20, color: "#3f2c23" },
-  { name: "incorporify", img: sc.incorporify.img, logo: sc.incorporify.logo, logoW: 138, logoH: 20, color: "#103278" },
-  { name: "UnderTheRadar", img: sc.utr.img, logo: sc.utr.logo, logoW: 67, logoH: 20, color: "#605850" },
+  { name: "incorporify", img: sc.incorporify.img, href: "https://incorporify.com/", logo: sc.incorporify.logo, logoW: 138, logoH: 20, color: "#103278" },
+  { name: "UnderTheRadar", img: sc.utr.img, href: "https://www.undertheradar.agency/", logo: sc.utr.logo, logoW: 67, logoH: 20, color: "#605850" },
   { name: "Letiti", img: sc.letiti.img, logo: sc.letiti.logo, logoW: 57, logoH: 26, color: "#58342e" },
   { name: "Vilindent", img: sc.vilindent.img, logo: sc.vilindent.logo, logoW: 82, logoH: 32, color: "#3f7c99" },
   { name: "Bulkstream", img: sc.bulkstream.img, logo: sc.bulkstream.logo, logoW: 124, logoH: 19, color: "#2a3a3c" },
-  { name: "Veneda", img: sc.veneda.img, logo: sc.veneda.logo, logoW: 96, logoH: 24, color: "#442d1c" },
-  { name: "Invertolux", img: sc.invertolux.img, logo: sc.invertolux.logo, logoW: 95, logoH: 16, color: "#b4b4b4" },
+  { name: "Veneda", img: sc.veneda.img, href: "https://www.veneda.rs/", logo: sc.veneda.logo, logoW: 96, logoH: 24, color: "#442d1c" },
+  { name: "Invertolux", img: sc.invertolux.img, href: "https://www.invertolux.com/", logo: sc.invertolux.logo, logoW: 95, logoH: 16, color: "#b4b4b4" },
 ];
 
 const AUTO_SPEED = 0.05; // px per ms — continuous leftward drift
