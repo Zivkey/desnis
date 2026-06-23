@@ -42,3 +42,6 @@ next-env.d.ts
 
 # claude local settings
 .claude/settings.local.json
+
+# JetBrains IDE files
+.idea/

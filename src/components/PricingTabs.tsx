@@ -11,22 +11,71 @@ import { assets } from "@/lib/assets";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const features = [
-  "Premium Component Setup",
-  "Fully Responsive & Lightning Fast",
-  "Managed Hosting & Security",
-  "Active as long as you subscribe",
-];
-
-const LOREM = "Lorem ipsum dolor sit amet consectetur.";
-
 const oneTime = [
-  { name: "Landing Page", pages: ["1 pager"], prices: [1000] },
-  { name: "Premium", pages: ["5 pages", "10 pages", "15 pages+"], prices: [5000, 9000, 14000] },
+  {
+    name: "Landing Page",
+    pages: ["1 pager"],
+    prices: [1000],
+    desc: "Perfect for new businesses needing a premium online presence fast. A beautifully crafted single-page website designed to convert visitors into clients.",
+    features: [
+      "Clean single-page layout designed to convert visitors fast.",
+      "100% custom premium design tailored to your brand.",
+      "Flawless experience on all phones, tablets, and computers.",
+      "Ready-to-use lead forms so clients can reach out instantly.",
+      "Standard search setup so people can easily find you on Google.",
+      "100% yours with zero monthly agency fees.",
+    ],
+  },
+  {
+    name: "Premium",
+    pages: ["5 pages", "10 pages", "15 pages+"],
+    prices: [5000, 9000, 14000],
+    desc: "A full multi-page website, engineered to rank and convert. Custom design, advanced search visibility, and the polish that makes visitors trust you.",
+    features: [
+      "Multi-page structure with options for 5, 10, or 15+ pages.",
+      "100% custom premium design with high-end motion & animations.",
+      "Flawless experience on all phones, tablets, and computers.",
+      "Simple dashboard to update your text, images, or blog posts yourself.",
+      "Advanced strategy to outrank your competition on Google.",
+      "100% yours with zero monthly agency fees.",
+    ],
+  },
 ];
 
-const hourPlans = ["Starter", "Growth", "Scale"];
-const hourPrices = [500, 1200, 2500];
+const club = {
+  desc: "Continuous design, development, and strategy for your brand. The power of a dedicated digital team without the hiring overhead.",
+  benefits: [
+    "50 Monthly Tokens - Blazing fast execution at our most exclusive rate ($50/h).",
+    "Same-Day Priority - Your tasks jump straight to the front of our daily queue.",
+    "All-In-One - Use your tokens for anything: design, code, SEO, copy, or social media.",
+    "Total Flexibility - Pause or cancel your membership anytime you want, no stress.",
+  ],
+};
+
+const hourPackageDesc =
+  "Flexible, on-demand hours for businesses needing top-tier execution. Secure your package now and use the hours completely at your own pace.";
+
+const hourPlans = ["Basic", "Growth", "Scale"];
+const hourTiers = [
+  {
+    price: 500,
+    tokens: 5,
+    rate: 100,
+    benefits: ["48-Hour Response Time", "Valid for 6 Months", "Use your tokens for any needs", "0 Free Tokens"],
+  },
+  {
+    price: 1200,
+    tokens: 15,
+    rate: 80,
+    benefits: ["24-Hour Response Time", "Valid for 12 Months", "Use your tokens for any needs", "1 Free Token"],
+  },
+  {
+    price: 2450,
+    tokens: 35,
+    rate: 70,
+    benefits: ["Same-Day Turnaround", "Never Expires", "Use your tokens for any needs", "2 Free Tokens"],
+  },
+];
 
 const tabs = ["One-Time", "Monthly"];
 
@@ -119,15 +168,27 @@ function SlidingTabs({
   );
 }
 
-function Features() {
+function Features({ items }: { items: string[] }) {
   return (
     <ul className="mt-8 space-y-6">
-      {features.map((f) => (
-        <li key={f} className="flex items-center gap-2">
-          <Image src={assets.iconCheck} alt="" width={20} height={20} />
-          <span className="text-sm text-white/90">{f}</span>
-        </li>
-      ))}
+      {items.map((f) => {
+        const [head, ...rest] = f.split(" - ");
+        const tail = rest.join(" - ");
+        return (
+          <li key={f} className="flex items-start gap-2">
+            <Image src={assets.iconCheck} alt="" width={20} height={20} className="mt-0.5 shrink-0" />
+            <span className="text-sm leading-6 text-white/90">
+              {tail ? (
+                <>
+                  <span className="text-white">{head}</span> — <span className="text-white/65">{tail}</span>
+                </>
+              ) : (
+                head
+              )}
+            </span>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -273,7 +334,7 @@ export function PricingTabs() {
                 className="glass flex flex-col rounded-2xl p-8 text-left"
               >
                 <h3 className="text-2xl tracking-[-0.96px]">{t.name}</h3>
-                <p className="mt-2 text-base font-light leading-6 text-white/65">{LOREM}</p>
+                <p className="mt-2 text-base font-light leading-6 text-white/65">{t.desc}</p>
                 <AnimatedPrice
                   value={t.prices[t.pages.length > 1 ? premiumPages : 0]}
                   className="mt-6 text-[40px] leading-none tracking-[-1.6px]"
@@ -298,7 +359,7 @@ export function PricingTabs() {
                 <button className={flowHover("light", "mt-2.5 w-full rounded-xl py-3 text-sm font-semibold")}>
                   Reach out
                 </button>
-                <Features />
+                <Features items={t.features} />
               </article>
             ))}
           </div>
@@ -318,7 +379,7 @@ export function PricingTabs() {
                   className="pointer-events-none absolute -top-10 right-8 hidden h-[235px] w-[365px] rotate-[-7deg] rounded-2xl bg-[linear-gradient(135deg,#efefef,#bdbdbd)] shadow-[0_24px_70px_rgba(0,0,0,0.5)] lg:block"
                 />
                 <h3 className="text-2xl tracking-[-0.96px]">Desnis Club</h3>
-                <p className="mt-2 max-w-[320px] text-base font-light leading-6 text-white/65">{LOREM}</p>
+                <p className="mt-2 max-w-[320px] text-base font-light leading-6 text-white/65">{club.desc}</p>
                 <div className="mt-6 flex items-end gap-2">
                   <span className="text-[40px] leading-none tracking-[-1.6px]">$2500</span>
                   <span className="pb-1 text-lg font-light text-white/65">/mo</span>
@@ -329,19 +390,22 @@ export function PricingTabs() {
                   <button className={flowHover("light", "mt-8 w-full rounded-xl py-3 text-sm font-semibold")}>
                     Reach out
                   </button>
-                  <Features />
+                  <Features items={club.benefits} />
                 </div>
               </article>
 
               {/* Hour Package */}
               <article data-price-card className="glass flex flex-col rounded-2xl p-8 text-left">
                 <h3 className="text-2xl tracking-[-0.96px]">Hour Package</h3>
-                <p className="mt-2 text-base font-light leading-6 text-white/65">{LOREM}</p>
+                <p className="mt-2 text-base font-light leading-6 text-white/65">{hourPackageDesc}</p>
                 <AnimatedPrice
-                  value={hourPrices[hourPlan]}
+                  value={hourTiers[hourPlan].price}
                   className="mt-6 text-[40px] leading-none tracking-[-1.6px]"
                 />
-                <TokensLine amount="5 Tokens" rate="$100 = 1h" />
+                <TokensLine
+                  amount={`${hourTiers[hourPlan].tokens} Tokens`}
+                  rate={`$${hourTiers[hourPlan].rate} = 1h`}
+                />
 
                 <SlidingTabs
                   options={hourPlans}
@@ -357,7 +421,7 @@ export function PricingTabs() {
                   <button className={flowHover("light", "mt-8 w-full rounded-xl py-3 text-sm font-semibold")}>
                     Reach out
                   </button>
-                  <Features />
+                  <Features items={hourTiers[hourPlan].benefits} />
                 </div>
               </article>
             </div>
