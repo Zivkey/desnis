@@ -22,6 +22,9 @@ html {
      shifting the centered layout sideways. */
   overflow-x: hidden;
   scrollbar-gutter: stable;
+  /* Paint the overscroll/rubber-band area in the site colour so scrolling past
+     the top never reveals a black gap. */
+  background: var(--color-ink);
 }
 
 body {
