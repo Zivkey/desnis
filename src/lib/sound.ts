@@ -11,7 +11,7 @@ function engine() {
     if (!AC) return null;
     ctx = new AC();
     master = ctx.createGain();
-    master.gain.value = 0.5; // overall UI sound volume — kept gentle
+    master.gain.value = 0.35; // overall UI sound volume — kept gentle
     master.connect(ctx.destination);
   }
   // AudioContext starts suspended until a user gesture — resume on first play.
