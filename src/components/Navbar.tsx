@@ -10,7 +10,7 @@ import { WHATSAPP_URL } from "@/lib/contact";
 const links = [
   { label: "What we do", href: "/#what-we-do" },
   { label: "Our work", href: "/#our-work" },
-  { label: "Lifestyle", href: "/#lifestyle" },
+  { label: "Pricing", href: "/#pricing" },
 ];
 
 export function Navbar() {
