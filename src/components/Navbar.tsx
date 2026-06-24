@@ -120,7 +120,7 @@ export function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat on WhatsApp"
-              className="flex items-center justify-center rounded-xl bg-accent p-3 transition-opacity hover:opacity-90"
+              className="sfx-hover flex items-center justify-center rounded-xl bg-accent p-3 transition-opacity hover:opacity-90"
             >
               <Image src={assets.whatsapp} alt="" width={24} height={24} />
             </a>
@@ -191,7 +191,7 @@ export function Navbar() {
                   rel="noopener noreferrer"
                   aria-label="Chat on WhatsApp"
                   tabIndex={open ? 0 : -1}
-                  className="flex items-center justify-center rounded-xl bg-accent p-3 transition-opacity hover:opacity-90"
+                  className="sfx-hover flex items-center justify-center rounded-xl bg-accent p-3 transition-opacity hover:opacity-90"
                 >
                   <Image src={assets.whatsapp} alt="" width={24} height={24} />
                 </a>

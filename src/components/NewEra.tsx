@@ -30,7 +30,7 @@ export function NewEra() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2.5 rounded-xl bg-accent py-3 pl-5 pr-6 text-base font-medium tracking-[-0.32px] text-ink transition-opacity hover:opacity-90"
+            className="sfx-hover flex items-center gap-2.5 rounded-xl bg-accent py-3 pl-5 pr-6 text-base font-medium tracking-[-0.32px] text-ink transition-opacity hover:opacity-90"
           >
             <Image src={assets.whatsapp} alt="" width={24} height={24} />
             WhatsApp

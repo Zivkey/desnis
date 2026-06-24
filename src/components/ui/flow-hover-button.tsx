@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils";
 export type FlowVariant = "light" | "dark";
 
 const base =
-  "relative z-0 inline-flex cursor-pointer select-none items-center justify-center gap-2 " +
+  // `sfx-hover` is a no-style marker so the UI sound layer can target these CTAs.
+  "sfx-hover relative z-0 inline-flex cursor-pointer select-none items-center justify-center gap-2 " +
   "overflow-hidden rounded-xl font-medium transition-all duration-[400ms] hover:scale-105 active:scale-95";
 
 const variants: Record<FlowVariant, string> = {
