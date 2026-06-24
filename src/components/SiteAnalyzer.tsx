@@ -31,6 +31,9 @@ export function SiteAnalyzer() {
   const [modal, setModal] = useState<Modal>("closed");
   const [industry, setIndustry] = useState("");
   const [goals, setGoals] = useState<string[]>([]);
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -69,6 +72,26 @@ export function SiteAnalyzer() {
     setModal("closed");
     setIndustry("");
     setGoals([]);
+    setEmail("");
+    setPhone("");
+    setStatus("idle");
+  }
+
+  async function submitDetails(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: cleanUrl, industry, goals, email, phone }),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("idle");
+      setModal("done");
+    } catch {
+      setStatus("error");
+    }
   }
 
   function toggleGoal(goal: string) {
@@ -142,12 +165,7 @@ export function SiteAnalyzer() {
                 </button>
 
                 {modal === "details" ? (
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setModal("done");
-                    }}
-                  >
+                  <form onSubmit={submitDetails}>
                     <h3 className="text-2xl tracking-[-0.8px]">Let&rsquo;s scope it out</h3>
                     <p className="mt-2 text-sm font-light leading-6 text-white/65">
                       A few details about{" "}
@@ -217,16 +235,49 @@ export function SiteAnalyzer() {
                       })}
                     </div>
 
+                    {/* Email */}
+                    <label className="mt-5 block text-xs font-light text-white/50">
+                      Your email
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@company.com"
+                      autoComplete="email"
+                      className="mt-1.5 h-12 w-full rounded-xl bg-white/10 px-4 text-sm text-white outline-none transition-colors placeholder:text-white/35 focus:bg-white/[0.14]"
+                    />
+
+                    {/* Phone (optional) */}
+                    <label className="mt-5 block text-xs font-light text-white/50">
+                      Phone <span className="text-white/35">(optional)</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+1 555 000 0000"
+                      autoComplete="tel"
+                      className="mt-1.5 h-12 w-full rounded-xl bg-white/10 px-4 text-sm text-white outline-none transition-colors placeholder:text-white/35 focus:bg-white/[0.14]"
+                    />
+
                     <button
                       type="submit"
-                      disabled={!industry}
+                      disabled={!industry || !email || status === "sending"}
                       className={flowHover(
                         "dark",
                         "mt-7 h-12 w-full rounded-xl px-6 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50",
                       )}
                     >
-                      Submit
+                      {status === "sending" ? "Sending…" : "Submit"}
                     </button>
+
+                    {status === "error" && (
+                      <p className="mt-3 text-sm text-red-400">
+                        Something went wrong. Please try again.
+                      </p>
+                    )}
                   </form>
                 ) : (
                   <div className="py-2 text-center">
