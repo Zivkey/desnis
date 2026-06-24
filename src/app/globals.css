@@ -7,6 +7,10 @@
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), Georgia, serif;
+
+  /* "Desktop" cutoff used for mobile-specific behaviour (full-bleed carousel,
+     carousel arrows below the cards, 16px inputs). */
+  --breakpoint-desktop: 992px;
 }
 
 :root {
@@ -38,6 +42,17 @@ body {
 button:not(:disabled),
 [role="button"]:not(:disabled) {
   cursor: pointer;
+}
+
+/* Below the desktop breakpoint (992px), force form controls to 16px so iOS
+   Safari never zooms in when one is focused. Unlayered, so it overrides the
+   Tailwind text-size utilities on these inputs. */
+@media (max-width: 991.98px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
 }
 
 /* Scroll-reveal wrappers start hidden so the server-rendered content does not

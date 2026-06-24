@@ -78,7 +78,7 @@ function ClipCard({ item, onOpen }: { item: Item; onOpen: () => void }) {
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onClick={onOpen}
-      className="group/clip relative h-[498px] w-[376px] max-w-[82vw] shrink-0 cursor-pointer snap-start overflow-hidden rounded-2xl border border-white/10"
+      className="group/clip relative h-[498px] w-[376px] max-w-[82vw] shrink-0 cursor-pointer snap-center overflow-hidden rounded-2xl border border-white/10 desktop:snap-start"
     >
       <video
         ref={videoRef}
@@ -264,6 +264,41 @@ function ClipLightbox({ item, onClose }: { item: Item; onClose: () => void }) {
   );
 }
 
+/** Prev / next carousel controls — reused for the desktop header and the
+ *  mobile row beneath the cards. */
+function Arrows({
+  className,
+  canPrev,
+  canNext,
+  onPrev,
+  onNext,
+}: {
+  className: string;
+  canPrev: boolean;
+  canNext: boolean;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  const btn =
+    "glass-soft flex size-12 items-center justify-center rounded-xl text-white transition-colors hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/10";
+  return (
+    <div className={className}>
+      <button type="button" aria-label="Previous testimonials" onClick={onPrev} disabled={!canPrev} className={btn}>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+      </button>
+      <button type="button" aria-label="Next testimonials" onClick={onNext} disabled={!canNext} className={btn}>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 export function Testimonials() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
@@ -299,45 +334,39 @@ export function Testimonials() {
             <h2 className="max-w-[640px] text-[34px] leading-tight tracking-[-1.44px] sm:text-[40px] lg:text-[48px]">
               Hear it directly from the source
             </h2>
-            <div className="hidden shrink-0 items-center gap-2 sm:flex">
-              <button
-                type="button"
-                aria-label="Previous testimonials"
-                onClick={() => scrollByCard(-1)}
-                disabled={!canPrev}
-                className="glass-soft flex size-12 items-center justify-center rounded-xl text-white transition-colors hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/10"
-              >
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <line x1="19" y1="12" x2="5" y2="12" />
-                  <polyline points="12 19 5 12 12 5" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                aria-label="Next testimonials"
-                onClick={() => scrollByCard(1)}
-                disabled={!canNext}
-                className="glass-soft flex size-12 items-center justify-center rounded-xl text-white transition-colors hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/10"
-              >
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            </div>
+            {/* Desktop (≥992px): arrows in the header */}
+            <Arrows
+              className="hidden shrink-0 items-center gap-2 desktop:flex"
+              canPrev={canPrev}
+              canNext={canNext}
+              onPrev={() => scrollByCard(-1)}
+              onNext={() => scrollByCard(1)}
+            />
           </div>
         </Reveal>
 
+        {/* Below 992px the carousel runs full-bleed: it breaks out of the
+            Container so the cards are cropped by the screen edge, not the
+            container's padding. Resets to contained on desktop. */}
         <Reveal className="mt-12">
           <div
             ref={scrollerRef}
-            className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 max-sm:-mx-6 max-sm:px-6 sm:max-desktop:-mx-10 sm:max-desktop:px-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {items.map((t, i) => (
               <ClipCard key={t.name} item={t} onOpen={() => setOpenIndex(i)} />
             ))}
           </div>
         </Reveal>
+
+        {/* Below 992px: arrows beneath the cards */}
+        <Arrows
+          className="mt-8 flex items-center justify-center gap-2 desktop:hidden"
+          canPrev={canPrev}
+          canNext={canNext}
+          onPrev={() => scrollByCard(-1)}
+          onNext={() => scrollByCard(1)}
+        />
       </Container>
 
       {openIndex !== null && (
