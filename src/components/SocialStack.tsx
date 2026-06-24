@@ -103,10 +103,14 @@ export function SocialStack() {
         <div className="relative aspect-[124/156]">
           <Image src={assets.adCreative1} alt="" fill sizes="124px" draggable={false} className="object-cover" />
           <div className="absolute inset-0 bg-black/25" />
-          <p className="absolute left-2.5 top-1/2 w-[80px] text-base font-bold leading-tight tracking-tight text-white">
+          {/* InvertoLux logo */}
+          <Image src={assets.invertoLuxLogo1} alt="" width={23} height={4} draggable={false} className="absolute left-[9px] top-[9px] h-[3.9px] w-[23px] max-w-none" />
+          <p className="absolute left-[11px] top-[50px] w-[81px] bg-linear-to-r from-white to-white/35 bg-clip-text text-left text-[19px] font-bold leading-[19px] tracking-[-1.33px] text-transparent">
             Pouzdan i tihi rad
           </p>
-          <p className="absolute bottom-2 left-2.5 text-[5px] text-white">invertolux.com</p>
+          <p className="absolute bottom-[3px] left-[11px] text-left text-[3.7px] tracking-[-0.15px] text-white">
+            invertolux.com
+          </p>
         </div>
       </div>
 
@@ -119,10 +123,12 @@ export function SocialStack() {
       >
         <div className="relative aspect-[124/156]">
           <Image src={assets.adCreative2} alt="" fill sizes="124px" draggable={false} className="object-cover" />
-          <p className="absolute left-2.5 top-2 w-[72px] text-[13px] font-bold leading-tight tracking-tight text-white">
+          {/* InvertoLux logo */}
+          <Image src={assets.invertoLuxLogo2} alt="" width={23} height={4} draggable={false} className="absolute left-[9px] top-[9px] h-[3.9px] w-[23px] max-w-none" />
+          <p className="absolute left-[11px] top-[18px] w-[71px] bg-linear-to-r from-white to-white/35 bg-clip-text text-left text-[14.78px] font-bold leading-[14.78px] tracking-[-1.03px] text-transparent">
             Energetski efikasne.
           </p>
-          <p className="absolute left-2.5 top-12 w-[74px] text-[6px] leading-tight text-white/75">
+          <p className="absolute left-[11px] top-[51px] w-[73px] text-left text-[5.5px] font-normal leading-[5.5px] tracking-[-0.22px] text-white/75">
             Inverter klime sa niskom potrošnjom struje
           </p>
         </div>

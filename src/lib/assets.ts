@@ -50,6 +50,9 @@ export const assets = {
   tokenEcosystemIcon: `${base}/token-ecosystem-icon.webp`,
   adCreative1: `${base}/992f7a4358d89ea7516aa6848b6d21f0d6e4182a.png`,
   adCreative2: `${base}/10fe626289512765dc776f29a37f065e9456e8fe.png`,
+  // InvertoLux wordmark overlaid on the ad creatives
+  invertoLuxLogo1: `${base}/71e04193ddcb6c21c3304a5733bd30db183ca98a.svg`,
+  invertoLuxLogo2: `${base}/d04644018ed0e2b0617465d7397fc83757212ebb.svg`,
 
   // Icons (svg)
   whatsapp: `${base}/46cb3a7e422011bbe1eedf03265fff99ff958fce.svg`,
