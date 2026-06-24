@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "./Container";
 import { Reveal } from "./Reveal";
 import { FooterWordmark } from "./FooterWordmark";
@@ -62,9 +63,8 @@ export function Footer() {
       <Container className="flex flex-col items-start gap-3 pb-10 pt-2">
         <p className="text-sm text-white/65">© 2026 DES/NIS All rights reserved.</p>
         <nav className="flex items-center gap-6 text-sm text-white/65">
-          <a href="#" className="transition-colors hover:text-white">Privacy</a>
-          <a href="#" className="transition-colors hover:text-white">Terms of Service</a>
-          <a href="#" className="transition-colors hover:text-white">Cookie Policy</a>
+          <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link>
+          <Link href="/terms" className="transition-colors hover:text-white">Terms of Service</Link>
         </nav>
       </Container>
     </footer>

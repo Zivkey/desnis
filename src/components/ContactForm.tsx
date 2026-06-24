@@ -135,8 +135,8 @@ export function ContactForm({ initialPlan }: { initialPlan?: string }) {
           />
           <span>
             I agree to the{" "}
-            <Link href="#" className="text-white underline-offset-2 hover:underline">Terms</Link> and{" "}
-            <Link href="#" className="text-white underline-offset-2 hover:underline">Privacy Policy</Link>
+            <Link href="/terms" className="text-white underline-offset-2 hover:underline">Terms</Link> and{" "}
+            <Link href="/privacy" className="text-white underline-offset-2 hover:underline">Privacy Policy</Link>
           </span>
         </label>
         <button
