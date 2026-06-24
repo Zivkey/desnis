@@ -5,13 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Draggable } from "gsap/Draggable";
 import { useGSAP } from "@gsap/react";
 import { Calendar, Pause } from "lucide-react";
 import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 import { sound } from "@/lib/sound";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable);
 
 const oneTime = [
   {
@@ -170,6 +171,39 @@ function SlidingTabs({
         </button>
       ))}
     </div>
+  );
+}
+
+/**
+ * The decorative "membership card" on Desnis Club. Drag it anywhere; on release
+ * it springs back to its original spot. Rotation lives on the CSS `rotate`
+ * property so GSAP's x/y translate never fights it. Desktop only (lg:block).
+ */
+function ClubCard() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    gsap.set(el, { rotation: -7 }); // resting tilt — GSAP owns the transform
+    const instances = Draggable.create(el, {
+      type: "x,y",
+      onPress() {
+        gsap.killTweensOf(el); // grab again mid-return without a jump
+      },
+      onDragEnd() {
+        gsap.to(this.target, { x: 0, y: 0, duration: 0.9, ease: "elastic.out(1, 0.55)" });
+      },
+    });
+    return () => instances.forEach((d) => d.kill());
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden
+      className="absolute -top-10 right-8 hidden h-[235px] w-[365px] cursor-grab touch-none rounded-2xl bg-[linear-gradient(135deg,#efefef,#bdbdbd)] shadow-[0_24px_70px_rgba(0,0,0,0.5)] active:cursor-grabbing lg:block"
+    />
   );
 }
 
@@ -381,11 +415,8 @@ export function PricingTabs() {
                 className="glass relative flex flex-col rounded-2xl p-8 text-left md:col-span-2"
               >
                 {/* Decorative membership card — rises out of the top of the card,
-                    sitting beside the title (desktop only). */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -top-10 right-8 hidden h-[235px] w-[365px] rotate-[-7deg] rounded-2xl bg-[linear-gradient(135deg,#efefef,#bdbdbd)] shadow-[0_24px_70px_rgba(0,0,0,0.5)] lg:block"
-                />
+                    sitting beside the title (desktop only). Drag it around. */}
+                <ClubCard />
                 <h3 className="text-2xl tracking-[-0.96px]">Desnis Club</h3>
                 <p className="mt-2 max-w-[320px] text-base font-light leading-6 text-white/65">{club.desc}</p>
                 <div className="mt-6 flex items-end gap-2">
