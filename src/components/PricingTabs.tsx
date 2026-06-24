@@ -9,6 +9,7 @@ import { useGSAP } from "@gsap/react";
 import { Calendar, Pause } from "lucide-react";
 import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
+import { sound } from "@/lib/sound";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -154,7 +155,10 @@ function SlidingTabs({
           type="button"
           aria-pressed={value === i}
           onClick={() => onChange(i)}
-          onMouseEnter={() => setHovered(i)}
+          onMouseEnter={() => {
+            setHovered(i);
+            if (i !== value) sound.hover(); // border slides → subtle tick
+          }}
           onMouseLeave={() => setHovered(null)}
           onFocus={() => setHovered(i)}
           onBlur={() => setHovered(null)}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SoundEffects } from "@/components/SoundEffects";
 import "./globals.css";
 
 const geist = Geist({
@@ -36,6 +37,7 @@ export default function RootLayout({
           <style>{`[data-reveal]{opacity:1 !important}`}</style>
         </noscript>
         {children}
+        <SoundEffects />
         <Analytics />
       </body>
     </html>
