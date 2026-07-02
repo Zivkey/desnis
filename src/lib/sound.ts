@@ -51,4 +51,8 @@ export const sound = {
   next: () => pop({ from: 540, to: 220, dur: 0.06 }),
   /** Very soft, quick tick for hovering a non-selected segmented-control option. */
   hover: () => pop({ from: 720, to: 540, gain: 0.04, dur: 0.035 }),
+  /** Short upward "lift" for picking up a draggable card. */
+  grab: () => pop({ from: 300, to: 440, gain: 0.06, dur: 0.045 }),
+  /** Soft downward "set down" for releasing a draggable card. */
+  release: () => pop({ from: 320, to: 150, gain: 0.07, dur: 0.07 }),
 };

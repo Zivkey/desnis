@@ -100,6 +100,29 @@ button:not(:disabled),
   }
 }
 
+/* Slowly pans the Desnis Club card's gradient across the surface */
+@keyframes club-gradient-pan {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.animate-club-gradient {
+  animation: club-gradient-pan 12s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-club-gradient {
+    animation: none;
+  }
+}
+
 /* Entrance for the site-analyzer details / thank-you panels */
 @keyframes pop-in {
   from {

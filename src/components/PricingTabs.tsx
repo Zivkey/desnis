@@ -174,13 +174,35 @@ function SlidingTabs({
   );
 }
 
+/** The Desnis "D" mark, filled with the white → lavender gradient from the
+ *  token-ecosystem icon so the card and the brand icon read as one family. */
+function DesnisMark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 19.9658 20" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden>
+      <defs>
+        <linearGradient id="desnis-mark-gradient" x1="10" y1="0" x2="10" y2="20" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#ffffff" />
+          <stop offset="1" stopColor="#c3c3f7" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M4.90918 14.9092L0 20V10H10L4.90918 14.9092ZM9.99512 0.00390625C15.5217 0.0882743 19.9657 4.52457 19.9658 10C19.9658 15.5283 15.4356 19.9999 9.83496 20H7.5293L4.9668 15H9.83496C12.5529 14.9999 14.9657 12.6828 14.9658 10C14.9657 7.31725 12.5529 5.00008 9.83496 5H4.82129L0 10V0H10L9.99512 0.00390625Z"
+        fill="url(#desnis-mark-gradient)"
+      />
+    </svg>
+  );
+}
+
 /**
- * The decorative "membership card" on Desnis Club. Drag it anywhere; on release
- * it springs back to its original spot. Rotation lives on the CSS `rotate`
- * property so GSAP's x/y translate never fights it. Desktop only (lg:block).
+ * The decorative "membership card" on Desnis Club. Styled after the
+ * token-ecosystem icon — a navy→indigo gradient with a lavender bottom-right
+ * glow and the gradient Desnis mark. Drag it anywhere; on release it springs
+ * back to its original spot. Rotation lives on the CSS `rotate` property so
+ * GSAP's x/y translate never fights it. Desktop only (lg:block).
  */
 function ClubCard() {
   const ref = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -190,20 +212,78 @@ function ClubCard() {
       type: "x,y",
       onPress() {
         gsap.killTweensOf(el); // grab again mid-return without a jump
+        sound.grab();
+      },
+      onRelease() {
+        sound.release();
       },
       onDragEnd() {
         gsap.to(this.target, { x: 0, y: 0, duration: 0.9, ease: "elastic.out(1, 0.55)" });
       },
     });
-    return () => instances.forEach((d) => d.kill());
+
+    // The royal-blue corner glow breathes and drifts so the gradient feels
+    // alive. (The dark base also pans via the `animate-club-gradient` keyframes.)
+    const tweens = [
+      gsap.to(glowRef.current, {
+        xPercent: -8,
+        yPercent: -7,
+        scale: 1.12,
+        opacity: 0.78,
+        duration: 5.5,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      }),
+    ];
+
+    return () => {
+      instances.forEach((d) => d.kill());
+      tweens.forEach((t) => t.kill());
+    };
   }, []);
 
   return (
     <div
       ref={ref}
       aria-hidden
-      className="absolute -top-10 right-8 hidden h-[235px] w-[365px] cursor-grab touch-none rounded-2xl bg-[linear-gradient(135deg,#efefef,#bdbdbd)] shadow-[0_24px_70px_rgba(0,0,0,0.5)] active:cursor-grabbing lg:block"
-    />
+      className="absolute -top-10 right-8 z-30 hidden h-[235px] w-[365px] cursor-grab touch-none overflow-hidden rounded-2xl bg-[#050509] shadow-[0_24px_70px_rgba(0,0,0,0.5)] active:cursor-grabbing lg:block"
+    >
+      {/* Base — near-black with only a faint navy toward the bottom-right.
+          Oversized so it can pan via the `animate-club-gradient` keyframes. */}
+      <div
+        className="animate-club-gradient absolute inset-0"
+        style={{
+          backgroundImage: "linear-gradient(135deg,#050509 0%,#050510 68%,#09091f 100%)",
+          backgroundSize: "200% 200%",
+          backgroundPosition: "0% 0%",
+        }}
+      />
+      {/* Royal-blue glow concentrated in the bottom-right corner, fading
+          diagonally into the dark — the signature of the Figma card. */}
+      <div
+        ref={glowRef}
+        className="absolute -bottom-12 -right-10 size-56 rounded-full bg-[radial-gradient(circle,rgba(58,66,248,0.9),rgba(42,48,205,0.32)_34%,transparent_60%)] blur-[38px]"
+      />
+      {/* Soft top sheen for a glassy, premium feel */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent_38%)]" />
+      {/* Hairline inner border */}
+      <div className="pointer-events-none absolute inset-0 rounded-2xl border border-white/10" />
+
+      {/* Content */}
+      <div className="relative flex h-full flex-col justify-between p-7">
+        <div className="flex items-start justify-between">
+          <DesnisMark className="h-9 w-9" />
+          <span className="text-[10px] font-medium uppercase tracking-[0.24em] text-white/50">Member</span>
+        </div>
+        <div>
+          <p className="bg-[linear-gradient(180deg,#ffffff,#c3c3f7)] bg-clip-text text-[22px] font-medium tracking-[-0.5px] text-transparent">
+            Desnis Club
+          </p>
+          <p className="mt-1 text-xs font-light tracking-wide text-white/45">Priority membership</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -409,10 +489,12 @@ export function PricingTabs() {
           /* ---------- Monthly ---------- */
           <>
             <div className="grid gap-4 md:grid-cols-3">
-              {/* Desnis Club */}
+              {/* Desnis Club — lifted above its grid siblings (relative z-20) so
+                  the draggable card can float over the Hour Package / info cards
+                  instead of being covered by their `glass` stacking contexts. */}
               <article
                 data-price-card
-                className="glass relative flex flex-col rounded-2xl p-8 text-left md:col-span-2"
+                className="glass relative z-20 flex flex-col rounded-2xl p-8 text-left md:col-span-2"
               >
                 {/* Decorative membership card — rises out of the top of the card,
                     sitting beside the title (desktop only). Drag it around. */}

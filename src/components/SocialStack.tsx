@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { assets } from "@/lib/assets";
+import { sound } from "@/lib/sound";
 
 gsap.registerPlugin(Draggable, InertiaPlugin);
 
@@ -57,6 +58,10 @@ export function SocialStack() {
         onPress() {
           cardRefs.current.forEach((c) => c && (c.style.zIndex = "1"));
           card.style.zIndex = "2";
+          sound.grab();
+        },
+        onRelease() {
+          sound.release();
         },
         onDragStart() {
           dismissHint();

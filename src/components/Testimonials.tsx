@@ -25,7 +25,7 @@ const items: Item[] = [
   },
   {
     name: "Milic Vasic",
-    role: "Founder of Conroo",
+    role: "BPO of Conroo",
     photo: assets.milicPoster,
     video: assets.milicClip,
     logo: (
