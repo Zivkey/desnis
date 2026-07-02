@@ -40,17 +40,23 @@ export function SiteAnalyzer() {
 
   const open = modal !== "closed";
 
-  // Lock body scroll + close on Escape while the modal is open.
+  // Lock page scroll + close on Escape while the modal is open. <html> is the
+  // scroll container here (overflow-x + scrollbar-gutter live on it), so lock
+  // it — not <body>. This freezes the page without changing window.scrollY, so
+  // the sticky navbar's scroll state isn't disturbed and it doesn't flash on
+  // close. scrollbar-gutter keeps the layout from shifting.
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const root = document.documentElement;
+    const prev = root.style.overflow;
+    root.style.overflow = "hidden";
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeModal();
     };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prev;
+      root.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,7 +108,7 @@ export function SiteAnalyzer() {
 
   return (
     <div className="mt-4 max-w-[522px]">
-      <form onSubmit={handleAnalyze} className="flex gap-2.5">
+      <form onSubmit={handleAnalyze} className="flex flex-col gap-2.5 sm:flex-row">
         <input
           type="text"
           inputMode="url"
@@ -114,11 +120,11 @@ export function SiteAnalyzer() {
           aria-label="Your website URL"
           aria-invalid={!!error}
           placeholder="yourwebsite.com"
-          className="h-[60px] flex-1 rounded-xl bg-white/10 px-5 text-sm text-white outline-none transition-colors placeholder:text-white/35 focus:bg-white/[0.14] aria-[invalid=true]:ring-1 aria-[invalid=true]:ring-red-400/60"
+          className="h-[60px] w-full rounded-xl bg-white/10 px-5 text-sm text-white outline-none transition-colors placeholder:text-white/35 focus:bg-white/[0.14] aria-[invalid=true]:ring-1 aria-[invalid=true]:ring-red-400/60 sm:flex-1"
         />
         <button
           type="submit"
-          className={flowHover("dark", "h-[60px] shrink-0 rounded-xl px-6 text-sm font-bold")}
+          className={flowHover("dark", "h-[60px] w-full rounded-xl px-6 text-sm font-bold sm:w-auto sm:shrink-0")}
         >
           Let&rsquo;s analyze
         </button>
