@@ -51,7 +51,7 @@ export function Services() {
             {columns.map((c) => (
               <div
                 key={c.title}
-                className="flex min-h-[440px] flex-col items-center justify-between gap-8 px-8 py-10 text-center"
+                className="flex min-w-0 min-h-[440px] flex-col items-center justify-between gap-8 px-6 py-10 text-center sm:px-8"
               >
                 <h3 className="text-xl tracking-[-0.4px]">{c.title}</h3>
                 <div className="flex flex-1 items-center justify-center">{c.visual}</div>
