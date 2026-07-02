@@ -17,9 +17,24 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://desnis.com"),
   title: "DES/NIS — A hands-on web team",
   description:
     "We combine deep industry experience with AI to design, build, and launch digital experiences faster.",
+  openGraph: {
+    title: "DES/NIS — A hands-on web team",
+    description:
+      "We combine deep industry experience with AI to design, build, and launch digital experiences faster.",
+    url: "https://desnis.com",
+    siteName: "DES/NIS",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DES/NIS — A hands-on web team",
+    description:
+      "We combine deep industry experience with AI to design, build, and launch digital experiences faster.",
+  },
 };
 
 export default function RootLayout({
