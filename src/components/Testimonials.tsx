@@ -19,22 +19,31 @@ const items: Item[] = [
   {
     name: "Lukas Pakter",
     role: "Founder of Haus and Outliers",
-    photo: assets.testimonial1,
+    photo: assets.lukasPoster,
     video: assets.sourceClip,
     logo: <OutliersLogo />,
   },
   {
-    name: "Pavle Sarcevic",
-    role: "Founder of Incorporify",
-    photo: assets.testimonial2,
-    video: assets.sourceClip,
-    logo: <span className="text-xl font-bold tracking-[-0.8px] text-white">incorporify</span>,
+    name: "Milic Vasic",
+    role: "Founder of Conroo",
+    photo: assets.milicPoster,
+    video: assets.milicClip,
+    logo: (
+      <Image
+        src={assets.showcase.conroo.logo}
+        alt="Conroo"
+        width={127}
+        height={16}
+        draggable={false}
+        className="h-5 w-auto max-w-none"
+      />
+    ),
   },
   {
     name: "Ilija Kocic",
     role: "Co-founder of UnderTheRadar",
-    photo: assets.testimonial1,
-    video: assets.sourceClip,
+    photo: assets.ilijaPoster,
+    video: assets.ilijaClip,
     logo: (
       <Image
         src={assets.utrLogo}

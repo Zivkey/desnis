@@ -15,6 +15,11 @@ export const assets = {
 
   // Testimonial / "from the source" clips
   sourceClip: `${base}/source-clip.mp4`,
+  lukasPoster: `${base}/lukas-poster.jpg`,
+  ilijaClip: `${base}/ilija-kocic.mp4`,
+  ilijaPoster: `${base}/ilija-kocic-poster.jpg`,
+  milicClip: `${base}/milic-vasic.mp4`,
+  milicPoster: `${base}/milic-vasic-poster.jpg`,
 
   // Avatars / people
   avatar1: `${base}/5f990a24a24152550f2716889342206c091b32ae.png`,
