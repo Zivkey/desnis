@@ -137,16 +137,19 @@ function ClipLightbox({ item, onClose }: { item: Item; onClose: () => void }) {
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  // Lock body scroll while open, and close on Escape.
+  // Lock page scroll while open, and close on Escape. <html> is the scroll
+  // container here (overflow-x + scrollbar-gutter live on it), so lock it —
+  // locking <body> does nothing on this site.
   useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const root = document.documentElement;
+    const prev = root.style.overflow;
+    root.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prev;
+      root.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
     };
   }, [onClose]);

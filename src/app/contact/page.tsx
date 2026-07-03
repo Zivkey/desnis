@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 import { Navbar } from "@/components/Navbar";
+import { Reveal } from "@/components/Reveal";
 import { flowHover } from "@/components/ui/flow-hover-button";
 import { assets } from "@/lib/assets";
 import { CALENDLY_URL } from "@/lib/contact";
@@ -44,8 +45,8 @@ export default async function ContactPage({
       <div className="absolute inset-x-0 top-24 z-10 h-px bg-white/10" />
 
       <div className="relative z-10 mx-auto grid min-h-screen max-w-[1240px] grid-cols-1 items-stretch gap-12 px-6 pb-12 pt-28 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:pb-16 lg:pt-32">
-        {/* Left — copy + contact info */}
-        <div className="flex flex-col">
+        {/* Left — copy + contact info (staggers up on load) */}
+        <Reveal className="flex flex-col" start="top 95%">
           <h1 className="text-[40px] leading-[1.05] tracking-[-1.6px] sm:text-[52px] lg:text-[60px]">
             Get in touch
           </h1>
@@ -62,22 +63,27 @@ export default async function ContactPage({
 
           <p className="mt-5 text-xl font-light tracking-[-0.4px] text-white/75">Schedule a call</p>
 
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={flowHover("light", "mt-5 w-full max-w-[278px] justify-between rounded-xl px-3.5 py-3")}
-          >
-            <span className="flex items-center">
-              <span className="size-6 overflow-hidden rounded-full border-[0.75px] border-white bg-white">
-                <Image src={assets.avatar1} alt="" width={24} height={24} className="size-full object-cover" />
+          {/* Wrapped in a plain div so the reveal animation transforms this
+              wrapper, not the glass-soft anchor itself — animating a
+              backdrop-filter element directly makes it render invisible. */}
+          <div className="mt-5">
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={flowHover("light", "w-full max-w-[278px] justify-between rounded-xl px-3.5 py-3")}
+            >
+              <span className="flex items-center">
+                <span className="size-6 overflow-hidden rounded-full border-[0.75px] border-white bg-white">
+                  <Image src={assets.avatar1} alt="" width={24} height={24} className="size-full object-cover" />
+                </span>
+                <span className="-ml-1.5 size-6 overflow-hidden rounded-full border-[0.75px] border-white bg-white">
+                  <Image src={assets.avatar3} alt="" width={24} height={24} className="size-full object-cover" />
+                </span>
               </span>
-              <span className="-ml-1.5 size-6 overflow-hidden rounded-full border-[0.75px] border-white bg-white">
-                <Image src={assets.avatar3} alt="" width={24} height={24} className="size-full object-cover" />
-              </span>
-            </span>
-            <span className="text-sm font-semibold">Book a call</span>
-          </a>
+              <span className="text-sm font-semibold">Book a call</span>
+            </a>
+          </div>
 
           <div className="mt-12 lg:mt-auto">
             <h2 className="text-lg tracking-[-0.4px]">General contact info</h2>
@@ -96,12 +102,12 @@ export default async function ContactPage({
               </div>
             </dl>
           </div>
-        </div>
+        </Reveal>
 
-        {/* Right — form */}
-        <div className="w-full lg:justify-self-end lg:max-w-[520px]">
+        {/* Right — form (fades in just after the copy) */}
+        <Reveal className="w-full lg:justify-self-end lg:max-w-[520px]" start="top 95%" delay={0.15}>
           <ContactForm initialPlan={initialPlan} />
-        </div>
+        </Reveal>
       </div>
     </main>
   );
