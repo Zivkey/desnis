@@ -40,7 +40,7 @@ export const assets = {
   testimonial2: `${base}/979d321add6e0e9776bf9abe23c8b0fedc00a0af.png`,
 
   // "What we do" preview image
-  whatWeDo: `${base}/adb3c92bbc94f5a339aea9626764b73446911167.png`,
+  whatWeDo: `${base}/whatwedo-laptop.png`,
 
   // Brand logos (testimonials + showcase cards)
   outliersWordmark: `${base}/1c3bc1e4340eb70b4b21b17362fb63adecda100d.svg`,
