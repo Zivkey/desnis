@@ -45,3 +45,9 @@ next-env.d.ts
 
 # JetBrains IDE files
 .idea/
+
+# Agentation — localhost-only dev tool, intentionally NOT committed (must never
+# reach prod). This ignores the untracked component; the paired edits in
+# src/app/layout.tsx and package.json/package-lock.json are also intentionally
+# left uncommitted. See memory "agentation-local-only" for the full setup.
+src/components/DevTools.tsx
