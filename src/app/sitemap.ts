@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 
-// www is the canonical host — the apex (desnis.com) 308-redirects to it, so the
-// sitemap must list www URLs (same host it's served from, no redirects).
-const BASE_URL = "https://www.desnis.com";
+// The apex (desnis.com) is the canonical host — www 308-redirects to it, so the
+// sitemap must list apex URLs (same host it's served from, no redirects).
+const BASE_URL = "https://desnis.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

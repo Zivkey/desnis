@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
-// www is the canonical host — the apex (desnis.com) 308-redirects to it.
-const BASE_URL = "https://www.desnis.com";
+// The apex (desnis.com) is the canonical host — www 308-redirects to it.
+const BASE_URL = "https://desnis.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {

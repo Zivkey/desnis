@@ -18,6 +18,9 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://desnis.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: "DES/NIS — A hands-on web team",
   description:
     "We combine deep industry experience with AI to design, build, and launch digital experiences faster.",

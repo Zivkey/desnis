@@ -47,7 +47,7 @@ export function SearchCard() {
           <div className="leading-tight">
             <p className="text-[8px] text-white/75">DES/NIS</p>
             <p className="text-[7px] text-white/75">
-              <span className="font-bold">Annonce</span> · www.desnis.com/
+              <span className="font-bold">Annonce</span> · desnis.com/
             </p>
           </div>
         </div>
