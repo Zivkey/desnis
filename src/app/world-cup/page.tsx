@@ -21,6 +21,12 @@ export default function WorldCupPage() {
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: PRIME_SCALE_SCRIPT }} />
+
+      {/* The poster is a fixed 1440x900 design with no responsive layout — it
+          only reads when cover-scaled onto a wide viewport. Below a laptop it
+          crops to nonsense, so it's gated to lg+ and phones/tablets get the
+          fallback below instead. */}
+      <div className="hidden lg:block">
       <WorldCupStage>
         {/* Stadium backdrop — bleeds past the frame on every side. */}
         <div className="absolute left-1/2 top-[calc(50%+6px)] h-[912px] w-[1634px] -translate-x-1/2 -translate-y-1/2">
@@ -129,6 +135,39 @@ export default function WorldCupPage() {
       {/* Head-to-head paper (Figma 2232:139). Last, and on its own scaled
           layer, so it covers the header and the vote bar too. */}
       <WorldCupPaper />
+      </div>
+
+      {/* Phone / tablet fallback (< lg). The interactive poster needs a wide
+          desktop viewport; here we just show the stadium and point people to a
+          bigger screen. */}
+      <div className="fixed inset-0 lg:hidden">
+        <Image
+          src={assets.worldCup.stadiumBg}
+          alt=""
+          fill
+          unoptimized
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        {/* Darken the stadium so the white copy stays legible over it. */}
+        <div className="absolute inset-0 bg-black/60" />
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-[16px] px-[32px] text-center">
+          <p className="text-[12px] font-medium uppercase tracking-[0.22em] text-white/65">
+            2026 WC Edition
+          </p>
+          <h1 className="text-[34px] leading-[1.06] tracking-[-0.8px] text-white">
+            <span className="font-normal">The </span>
+            <span className="font-serif not-italic">Countdown</span>
+            <span className="font-normal"> is on!</span>
+          </h1>
+          <p className="max-w-[300px] text-[15px] leading-[22px] text-white/75">
+            This one&rsquo;s built for the big screen. Open the site on a desktop
+            browser to step into the stadium.
+          </p>
+        </div>
+      </div>
     </>
   );
 }
