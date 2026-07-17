@@ -131,11 +131,11 @@ export function WorldCupVoteBar() {
         }}
         aria-label="Reset the fight"
         title="Reset"
-        className={`absolute left-[calc(100%+12px)] top-1/2 grid h-[36px] w-[36px] -translate-y-1/2 place-items-center rounded-full bg-white/5 text-white/70 shadow-[0px_8px_32px_0px_rgba(0,0,0,0.35)] backdrop-blur-[32px] transition-[opacity,color] duration-300 ease-out hover:text-white motion-reduce:transition-none ${
+        className={`absolute left-[calc(100%+12px)] top-1/2 grid h-[36px] w-[36px] -translate-y-1/2 place-items-center rounded-full bg-white/5 shadow-[0px_8px_32px_0px_rgba(0,0,0,0.35)] backdrop-blur-[32px] transition-[opacity,color] duration-300 ease-out hover:text-white motion-reduce:transition-none ${
           (fight.hits.spain === 0 && fight.hits.argentina === 0) || photoExpanded
             ? "pointer-events-none opacity-0"
             : "opacity-100"
-        } ${winner ? "animate-pulse" : ""}`}
+        } ${winner ? "wc-reset-flare text-white" : "text-white/70"}`}
       >
         {/* Rotate-arrow glyph — no icon dependency for one control. */}
         <svg

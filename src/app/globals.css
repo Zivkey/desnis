@@ -53,6 +53,29 @@ html {
   }
 }
 
+/* Reset button once the fight is won: the whole button beats up and down, so
+   the one thing left to do reads as clickable rather than fading into the
+   frosted pill. */
+@keyframes wc-reset-flare {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.28;
+  }
+}
+
+.wc-reset-flare {
+  animation: wc-reset-flare 1.1s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wc-reset-flare {
+    animation: none;
+  }
+}
+
 /* /world-cup is a fixed, full-bleed poster that never scrolls, so the reserved
    gutter above would just show a strip of ink down the right edge. */
 html:has([data-world-cup-stage]) {
