@@ -6,9 +6,10 @@
 // Persisted to localStorage so a refresh — or a new session — keeps the fight
 // where it was left. Per-browser, not shared between visitors.
 //
-// Stored as a single net score rather than two counters: the bar, the winner
-// and the reset are all functions of the *difference*, and keeping one number
-// makes it impossible for the two to drift out of sync.
+// Stored as hits *taken* per player rather than a single net score. The bar and
+// the winner only care about the difference, but damage must not un-happen:
+// derived from net, hitting one player would heal the other back to an earlier
+// sprite. Hits only ever go up, so damage only ever goes up.
 
 export type Team = "spain" | "argentina";
 
@@ -22,7 +23,14 @@ export const TEAM_COLOR: Record<Team, string> = {
 export const WIN_AT = 15;
 
 const STORAGE_KEY = "desnis:world-cup-fight";
-const DEFAULT_SNAPSHOT = "0";
+const DEFAULT_SNAPSHOT = '{"spain":0,"argentina":0}';
+
+export type Fight = {
+  /** Hits taken by each player. Monotonic within a round. */
+  hits: Record<Team, number>;
+  /** Positive = Spain ahead. Clamped to +-WIN_AT. */
+  net: number;
+};
 
 const listeners = new Set<() => void>();
 
@@ -51,37 +59,45 @@ export function getServerSnapshot() {
   return DEFAULT_SNAPSHOT;
 }
 
-/** Positive = Spain ahead. Clamped, so a hand-edited value can't break the bar. */
-export function parseNet(snapshot: string): number {
-  const net = Number(snapshot);
-  if (!Number.isFinite(net)) return 0;
-  return Math.max(-WIN_AT, Math.min(WIN_AT, Math.trunc(net)));
+export function parseFight(snapshot: string): Fight {
+  let spain = 0;
+  let argentina = 0;
+  try {
+    const parsed = JSON.parse(snapshot);
+    const read = (v: unknown) =>
+      typeof v === "number" && Number.isFinite(v) ? Math.max(0, Math.floor(v)) : 0;
+    spain = read(parsed?.spain);
+    argentina = read(parsed?.argentina);
+  } catch {
+    // Corrupt, hand-edited, or the old single-number format — start fresh.
+  }
+  const net = Math.max(-WIN_AT, Math.min(WIN_AT, argentina - spain));
+  return { hits: { spain, argentina }, net };
 }
 
-export function winnerOf(net: number): Team | null {
-  if (net >= WIN_AT) return "spain";
-  if (net <= -WIN_AT) return "argentina";
+export function winnerOf(fight: Fight): Team | null {
+  if (fight.net >= WIN_AT) return "spain";
+  if (fight.net <= -WIN_AT) return "argentina";
   return null;
 }
 
 /** Spain's share of the bar, 0-100. Starts dead even and moves with the fight. */
-export function spainShareOf(net: number) {
-  return Math.round(50 + (net / WIN_AT) * 50);
+export function spainShareOf(fight: Fight) {
+  return Math.round(50 + (fight.net / WIN_AT) * 50);
 }
 
 /**
- * How beaten up `team` is: 0 untouched, 1 knocked out. Drives which artwork a
- * player wears. Reads only the side of the score that went against `team` —
- * hits they land on the other player don't heal them.
+ * How beaten up `team` is: 0 untouched, 1 knocked out. Drives which sprite a
+ * player wears. Reads hits taken, so it never walks backwards — once a player
+ * picks up bandages they keep them for the round.
  */
-export function damageOf(net: number, team: Team) {
-  const hitsTaken = team === "spain" ? Math.max(0, -net) : Math.max(0, net);
-  return hitsTaken / WIN_AT;
+export function damageOf(fight: Fight, team: Team) {
+  return Math.min(1, fight.hits[team] / WIN_AT);
 }
 
-function write(net: number) {
+function write(fight: Fight["hits"]) {
   try {
-    localStorage.setItem(STORAGE_KEY, String(net));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(fight));
   } catch {
     return; // Nothing persisted, so don't announce a change that didn't happen.
   }
@@ -90,12 +106,11 @@ function write(net: number) {
 
 /** Land a hit *on* `team` — they lose ground. No-op once the fight is settled. */
 export function attack(team: Team) {
-  const net = parseNet(getSnapshot());
-  if (winnerOf(net)) return;
-  // net is Spain-positive, so hitting Spain drags it down and vice versa.
-  write(parseNet(String(team === "spain" ? net - 1 : net + 1)));
+  const fight = parseFight(getSnapshot());
+  if (winnerOf(fight)) return;
+  write({ ...fight.hits, [team]: fight.hits[team] + 1 });
 }
 
 export function resetFight() {
-  write(0);
+  write({ spain: 0, argentina: 0 });
 }

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import {
   getServerSnapshot,
   getSnapshot,
-  parseNet,
+  parseFight,
   resetFight,
   spainShareOf,
   subscribe,
@@ -31,7 +31,7 @@ const PERCENT = "w-[38px] text-right tabular-nums text-white/55";
 
 export function WorldCupVoteBar() {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const net = useMemo(() => parseNet(snapshot), [snapshot]);
+  const fight = useMemo(() => parseFight(snapshot), [snapshot]);
   // Pinned to the viewport rather than inside the stage, so it can't ride the
   // stage's group-data fade and has to read the photo state itself.
   const photoExpanded = useSyncExternalStore(
@@ -40,25 +40,25 @@ export function WorldCupVoteBar() {
     photoServerSnapshot,
   );
 
-  const spainPercent = spainShareOf(net);
+  const spainPercent = spainShareOf(fight);
   const argentinaPercent = 100 - spainPercent;
   const spainWidth = (spainPercent / 100) * BARS_TOTAL;
   const argentinaWidth = BARS_TOTAL - spainWidth;
-  const winner = winnerOf(net);
+  const winner = winnerOf(fight);
 
   const spainBar = useRef<HTMLDivElement>(null);
   const argentinaBar = useRef<HTMLDivElement>(null);
-  const previous = useRef(net);
+  const previous = useRef(fight.net);
 
   // Swells the bar that just landed a hit, so the fight reacts rather than
   // silently sliding. Keyed off the net score, not the widths: both bars move
   // on every hit, but only one of them gained ground.
   useEffect(() => {
     const before = previous.current;
-    previous.current = net;
-    if (net === before) return;
+    previous.current = fight.net;
+    if (fight.net === before) return;
 
-    const grew = net > before ? spainBar.current : argentinaBar.current;
+    const grew = fight.net > before ? spainBar.current : argentinaBar.current;
     if (!grew) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -71,7 +71,7 @@ export function WorldCupVoteBar() {
       ],
       { duration: 450, easing: "ease-out" },
     );
-  }, [net]);
+  }, [fight]);
 
   // Fades every child individually rather than the wrapper. An ancestor at
   // opacity < 1 becomes a backdrop root, which leaves the pill's backdrop-blur
@@ -132,7 +132,7 @@ export function WorldCupVoteBar() {
         aria-label="Reset the fight"
         title="Reset"
         className={`absolute left-[calc(100%+12px)] top-1/2 grid h-[36px] w-[36px] -translate-y-1/2 place-items-center rounded-full bg-white/5 text-white/70 shadow-[0px_8px_32px_0px_rgba(0,0,0,0.35)] backdrop-blur-[32px] transition-[opacity,color] duration-300 ease-out hover:text-white motion-reduce:transition-none ${
-          net === 0 || photoExpanded
+          (fight.hits.spain === 0 && fight.hits.argentina === 0) || photoExpanded
             ? "pointer-events-none opacity-0"
             : "opacity-100"
         } ${winner ? "animate-pulse" : ""}`}

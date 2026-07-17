@@ -8,7 +8,7 @@ import {
   damageOf,
   getServerSnapshot,
   getSnapshot,
-  parseNet,
+  parseFight,
   subscribe,
 } from "@/lib/worldCupFight";
 
@@ -29,7 +29,7 @@ function spriteFor(damage: number) {
 
 export function WorldCupSpainPlayer() {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const sprite = spriteFor(damageOf(parseNet(snapshot), "spain"));
+  const sprite = spriteFor(damageOf(parseFight(snapshot), "spain"));
 
   return (
     // No `key` here: React keeps the same <img> across a src change, so the

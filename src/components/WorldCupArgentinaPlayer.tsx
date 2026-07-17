@@ -8,7 +8,7 @@ import {
   damageOf,
   getServerSnapshot,
   getSnapshot,
-  parseNet,
+  parseFight,
   subscribe,
 } from "@/lib/worldCupFight";
 
@@ -54,7 +54,7 @@ function spriteFor(damage: number) {
 
 export function WorldCupArgentinaPlayer() {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const sprite = spriteFor(damageOf(parseNet(snapshot), "argentina"));
+  const sprite = spriteFor(damageOf(parseFight(snapshot), "argentina"));
 
   return (
     // Figma's drop shadow follows the cutout's alpha, so this is a drop-shadow
