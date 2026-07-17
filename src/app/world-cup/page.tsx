@@ -41,7 +41,7 @@ export default function WorldCupPage() {
         {/* Argentina player — bandages at half health, drained once beaten. */}
         <WorldCupArgentinaPlayer />
 
-        {/* Ball — a second crop of the same source image as the Argentina player. */}
+        {/* Ball — cropped out of the original three-object artwork. */}
         <AlphaHoverScale
           hoverScale={0.714}
           opensMatchPaper
@@ -49,7 +49,7 @@ export default function WorldCupPage() {
         >
           <div className="absolute inset-0 overflow-hidden rounded-[10000px]">
             <Image
-              src={assets.worldCup.playerArgentina}
+              src={assets.worldCup.ballSource}
               alt=""
               width={4000}
               height={2233}

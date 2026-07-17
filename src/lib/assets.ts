@@ -86,8 +86,7 @@ export const assets = {
     invertolux: { img: `${base}/showcase/invertolux-v2.webp`, logo: `${base}/showcase/invertolux-logo.svg` },
   },
 
-  // /world-cup — 2026 WC Edition frame. Messi and the ball are two crops of the
-  // same source image, which is why `playerArgentina` is shared by both.
+  // /world-cup — 2026 WC Edition frame.
   worldCup: {
     stadiumBg: `${base}/world-cup/stadium-bg.png`,
     playerSpain: `${base}/world-cup/player-spain.png`,
@@ -96,12 +95,14 @@ export const assets = {
     playerSpainHurt: `${base}/world-cup/player-spain-hurt.png`,
     // Beaten, drained to black and white (Figma 2240:107).
     playerSpainDefeated: `${base}/world-cup/player-spain-defeated.png`,
-    playerArgentina: `${base}/world-cup/player-argentina.png`,
-    // Messi's damage states (Figma 2240:101 / 2240:103). Unlike the healthy
-    // pose — which is cropped out of the shared three-object image — these are
-    // Messi alone, so each carries its own crop.
+    // Messi's three states, each a standalone cutout (Figma 2242:120 /
+    // 2240:101 / 2240:103) sized to his 601x660 slot.
+    playerArgentina: `${base}/world-cup/player-argentina-healthy.png`,
     playerArgentinaHurt: `${base}/world-cup/player-argentina-hurt.png`,
     playerArgentinaDefeated: `${base}/world-cup/player-argentina-defeated.png`,
+    // The original three-object artwork (Yamal + ball + Messi). Only the ball
+    // is still cropped out of it — every other object now has its own cutout.
+    ballSource: `${base}/world-cup/player-argentina.png`,
     photo: `${base}/world-cup/photo.png`,
     logo: `${base}/world-cup/logo.svg`,
     // Head-to-head paper revealed by hovering the ball. Both crests are crops

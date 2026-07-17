@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { assets } from "@/lib/assets";
 import { AlphaHoverScale } from "./AlphaHoverScale";
@@ -15,18 +15,19 @@ import {
 // Messi takes the same three states as Yamal: healthy, bandaged at half health,
 // drained to black and white once beaten.
 //
-// Each carries its own source *and* crop, unlike Yamal's clean swaps: the
-// healthy pose is cropped out of the shared three-object image, while the two
-// damage states are Messi alone at their own sizes. Every crop below is Figma's
-// (2240:101 / 2240:103) and preserves its source's aspect, so none distort.
+// All three are standalone cutouts, but at different sizes, so each carries its
+// own crop. Every crop below is Figma's (2242:120 / 2240:101 / 2240:103) and
+// preserves its source's aspect, so none distort.
 const HURT_AT = 0.5;
 const DEFEATED_AT = 1;
 
+// 1803x1980 is exactly the 601x660 slot's aspect, so filling it edge to edge is
+// what object-cover would do anyway — no crop, no letterboxing.
 const HEALTHY = {
   src: assets.worldCup.playerArgentina,
-  width: 4000,
-  height: 2233,
-  crop: "left-[-127.99%] top-[-28.79%] h-[128.79%] w-[253.51%]",
+  width: 1803,
+  height: 1980,
+  crop: "left-0 top-0 h-full w-full",
   alt: "Argentina player",
 };
 
@@ -54,7 +55,34 @@ function spriteFor(damage: number) {
 
 export function WorldCupArgentinaPlayer() {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const sprite = spriteFor(damageOf(parseFight(snapshot), "argentina"));
+  const target = spriteFor(damageOf(parseFight(snapshot), "argentina"));
+  const [sprite, setSprite] = useState(target);
+
+  // Decode the next sprite before showing it. Messi's three cutouts are
+  // different sizes with different crops, so swapping naively applies the new
+  // crop the instant the state flips — while the new bytes are still loading —
+  // and paints the *old* image under the *new* crop: a stretched flash. Yamal
+  // never shows this because his three share one size and one crop.
+  //
+  // decode() resolves once the image is ready to paint, so src and crop land
+  // together on the same frame.
+  useEffect(() => {
+    if (target.src === sprite.src) return;
+    let cancelled = false;
+
+    const pending = new window.Image();
+    pending.src = target.src;
+    pending
+      .decode()
+      .catch(() => {}) // Decode can reject; showing it late beats not at all.
+      .finally(() => {
+        if (!cancelled) setSprite(target);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [target, sprite]);
 
   return (
     // Figma's drop shadow follows the cutout's alpha, so this is a drop-shadow
