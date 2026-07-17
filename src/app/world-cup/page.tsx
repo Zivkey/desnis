@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   title: "The Countdown is on! — DES/NIS",
   description:
     "2026 WC Edition. Beat up the player you don\u2019t want taking home the trophy!",
+  // Self-canonical: without this the page inherits the root layout's
+  // canonical ("/"), which tells Google it's a duplicate of the homepage.
+  // (This page is deliberately kept out of sitemap.ts.)
+  alternates: { canonical: "/world-cup" },
 };
 
 export default function WorldCupPage() {

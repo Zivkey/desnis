@@ -4,6 +4,9 @@ import { LegalPage } from "@/components/LegalPage";
 export const metadata: Metadata = {
   title: "Privacy Policy — DES/NIS",
   description: "How DES/NIS collects, uses, and protects your information.",
+  // Self-canonical: without this the page inherits the root layout's
+  // canonical ("/"), which tells Google it's a duplicate of the homepage.
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

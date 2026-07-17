@@ -10,6 +10,9 @@ import { CALENDLY_URL } from "@/lib/contact";
 export const metadata: Metadata = {
   title: "Get in touch — DES/NIS",
   description: "Tell us about your project and we'll get back to you.",
+  // Self-canonical: without this the page inherits the root layout's
+  // canonical ("/"), which tells Google it's a duplicate of the homepage.
+  alternates: { canonical: "/contact" },
 };
 
 export default async function ContactPage({

@@ -4,6 +4,9 @@ import { LegalPage } from "@/components/LegalPage";
 export const metadata: Metadata = {
   title: "Terms of Service — DES/NIS",
   description: "The terms that govern your use of the DES/NIS website.",
+  // Self-canonical: without this the page inherits the root layout's
+  // canonical ("/"), which tells Google it's a duplicate of the homepage.
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {
