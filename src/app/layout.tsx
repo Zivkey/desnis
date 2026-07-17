@@ -48,6 +48,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // /world-cup primes a --wc-scale custom property on <html> before paint,
+      // so the element carries a style attribute the server never rendered.
+      suppressHydrationWarning
       className={`${geist.variable} ${instrumentSerif.variable} antialiased`}
     >
       <body>

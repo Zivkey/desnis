@@ -31,6 +31,35 @@ html {
   background: var(--color-ink);
 }
 
+/* /world-cup — the expanded photo's copy writes on one character at a time,
+   each span carrying its own animation-delay. `both` keeps a character hidden
+   through its delay, so nothing shows until its turn. */
+@keyframes wc-write-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.wc-write-in {
+  animation: wc-write-in 90ms linear both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wc-write-in {
+    animation: none;
+  }
+}
+
+/* /world-cup is a fixed, full-bleed poster that never scrolls, so the reserved
+   gutter above would just show a strip of ink down the right edge. */
+html:has([data-world-cup-stage]) {
+  scrollbar-gutter: auto;
+  background: #dfe2e9;
+}
+
 body {
   background: var(--color-ink);
   color: #ffffff;

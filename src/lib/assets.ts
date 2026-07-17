@@ -85,4 +85,31 @@ export const assets = {
     veneda: { img: `${base}/showcase/veneda.webp`, logo: `${base}/showcase/veneda-logo.png` },
     invertolux: { img: `${base}/showcase/invertolux-v2.webp`, logo: `${base}/showcase/invertolux-logo.svg` },
   },
+
+  // /world-cup — 2026 WC Edition frame. Messi and the ball are two crops of the
+  // same source image, which is why `playerArgentina` is shared by both.
+  worldCup: {
+    stadiumBg: `${base}/world-cup/stadium-bg.png`,
+    playerSpain: `${base}/world-cup/player-spain.png`,
+    // Same pose and resolution as the healthy cutout — a drop-in for the same
+    // slot once Yamal has taken half a beating (Figma 2240:104).
+    playerSpainHurt: `${base}/world-cup/player-spain-hurt.png`,
+    // Beaten, drained to black and white (Figma 2240:107).
+    playerSpainDefeated: `${base}/world-cup/player-spain-defeated.png`,
+    playerArgentina: `${base}/world-cup/player-argentina.png`,
+    // Messi's damage states (Figma 2240:101 / 2240:103). Unlike the healthy
+    // pose — which is cropped out of the shared three-object image — these are
+    // Messi alone, so each carries its own crop.
+    playerArgentinaHurt: `${base}/world-cup/player-argentina-hurt.png`,
+    playerArgentinaDefeated: `${base}/world-cup/player-argentina-defeated.png`,
+    photo: `${base}/world-cup/photo.png`,
+    logo: `${base}/world-cup/logo.svg`,
+    // Head-to-head paper revealed by hovering the ball. Both crests are crops
+    // of one image, hence the single `crests` entry.
+    paper: `${base}/world-cup/paper.png`,
+    crests: `${base}/world-cup/crests.png`,
+    divider: `${base}/world-cup/divider.svg`,
+    // Awarded to whoever wins the scrap.
+    fanFavorite: `${base}/world-cup/fan-favorite.png`,
+  },
 } as const;
