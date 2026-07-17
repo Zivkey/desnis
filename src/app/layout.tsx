@@ -18,9 +18,10 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://desnis.com"),
-  alternates: {
-    canonical: "/",
-  },
+  // No canonical here on purpose: a canonical set on the root layout is
+  // inherited by every route, so each page would declare the homepage as its
+  // canonical and Google would treat them all as homepage duplicates. Each
+  // page (including the homepage, in app/page.tsx) sets its own instead.
   title: "DES/NIS — A hands-on web team",
   description:
     "We combine deep industry experience with AI to design, build, and launch digital experiences faster.",

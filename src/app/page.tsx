@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
@@ -7,6 +8,13 @@ import { NewEra } from "@/components/NewEra";
 import { Pricing } from "@/components/Pricing";
 import { Footer } from "@/components/Footer";
 import { assets } from "@/lib/assets";
+
+// Self-canonical for the homepage. The root layout no longer sets a global
+// canonical (it would be inherited by every route); title/description still
+// come from the layout's metadata.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
