@@ -29,8 +29,12 @@ photo**. All four hover, click, and can be dragged.
 | `lib/springDrag.ts` | Drag with spring-back, matching the homepage ClubCard. |
 
 Assets live in `public/assets/world-cup/`, mapped in `lib/assets.ts`. They are
-Figma's originals, unoptimised and full-size, by request — the stadium alone is a
-16MB PNG. `next/image` is used with `unoptimized`, so they ship as-is.
+WebP re-encodes of the Figma PNG originals (alpha preserved, quality 86) — the
+folder went from ~58MB to ~3.5MB, a 94% cut, with no visible loss. The two 4096px
+backgrounds (`stadium-bg`, `photo`) and the 2048px `fan-favorite` were also
+downscaled, since they render nowhere near those sizes. `next/image` still runs
+with `unoptimized` — the files ship as-is, they're just far smaller now. Re-run
+the conversion by pointing `sharp` at any replaced PNG.
 
 `ballSource` is the original three-object artwork (Yamal + ball + Messi). Only
 the ball is still cropped out of it; every other object has its own cutout.
@@ -203,7 +207,7 @@ Deliberate, from review. Anyone re-exporting the frame should expect these:
 ## Open
 
 - The fight is per-browser; a shared tally needs a backend.
-- Assets are unoptimised originals (~57MB) by request, and are in git history.
+- Assets are now WebP (~3.5MB total); the original PNGs remain in git history.
 - Flag emoji in the hover labels render as "ES"/"AR" on Windows. SVG flags would
   fix it.
 - The headline is 559px wide inside a 532px column — it centres by overflow, so

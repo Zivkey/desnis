@@ -86,31 +86,32 @@ export const assets = {
     invertolux: { img: `${base}/showcase/invertolux-v2.webp`, logo: `${base}/showcase/invertolux-logo.svg` },
   },
 
-  // /world-cup — 2026 WC Edition frame.
+  // /world-cup — 2026 WC Edition frame. Assets are WebP (alpha preserved),
+  // re-encoded from the Figma PNG originals — see world-cup.md "Assets".
   worldCup: {
-    stadiumBg: `${base}/world-cup/stadium-bg.png`,
-    playerSpain: `${base}/world-cup/player-spain.png`,
+    stadiumBg: `${base}/world-cup/stadium-bg.webp`,
+    playerSpain: `${base}/world-cup/player-spain.webp`,
     // Same pose and resolution as the healthy cutout — a drop-in for the same
     // slot once Yamal has taken half a beating (Figma 2240:104).
-    playerSpainHurt: `${base}/world-cup/player-spain-hurt.png`,
+    playerSpainHurt: `${base}/world-cup/player-spain-hurt.webp`,
     // Beaten, drained to black and white (Figma 2240:107).
-    playerSpainDefeated: `${base}/world-cup/player-spain-defeated.png`,
+    playerSpainDefeated: `${base}/world-cup/player-spain-defeated.webp`,
     // Messi's three states, each a standalone cutout (Figma 2242:120 /
     // 2240:101 / 2240:103) sized to his 601x660 slot.
-    playerArgentina: `${base}/world-cup/player-argentina-healthy.png`,
-    playerArgentinaHurt: `${base}/world-cup/player-argentina-hurt.png`,
-    playerArgentinaDefeated: `${base}/world-cup/player-argentina-defeated.png`,
+    playerArgentina: `${base}/world-cup/player-argentina-healthy.webp`,
+    playerArgentinaHurt: `${base}/world-cup/player-argentina-hurt.webp`,
+    playerArgentinaDefeated: `${base}/world-cup/player-argentina-defeated.webp`,
     // The original three-object artwork (Yamal + ball + Messi). Only the ball
     // is still cropped out of it — every other object now has its own cutout.
-    ballSource: `${base}/world-cup/player-argentina.png`,
-    photo: `${base}/world-cup/photo.png`,
+    ballSource: `${base}/world-cup/player-argentina.webp`,
+    photo: `${base}/world-cup/photo.webp`,
     logo: `${base}/world-cup/logo.svg`,
     // Head-to-head paper revealed by hovering the ball. Both crests are crops
     // of one image, hence the single `crests` entry.
-    paper: `${base}/world-cup/paper.png`,
-    crests: `${base}/world-cup/crests.png`,
+    paper: `${base}/world-cup/paper.webp`,
+    crests: `${base}/world-cup/crests.webp`,
     divider: `${base}/world-cup/divider.svg`,
     // Awarded to whoever wins the scrap.
-    fanFavorite: `${base}/world-cup/fan-favorite.png`,
+    fanFavorite: `${base}/world-cup/fan-favorite.webp`,
   },
 } as const;

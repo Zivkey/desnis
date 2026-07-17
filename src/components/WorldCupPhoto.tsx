@@ -196,8 +196,8 @@ export function WorldCupPhoto() {
               <Image
                 src={assets.worldCup.photo}
                 alt=""
-                width={4096}
-                height={2286}
+                width={2732}
+                height={1525}
                 unoptimized
                 className={`absolute max-w-none transition-all ${MORPH} motion-reduce:transition-none`}
                 style={s.image}

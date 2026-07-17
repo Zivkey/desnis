@@ -68,8 +68,8 @@ function Badge({ team, won }: { team: Team; won: boolean }) {
         <Image
           src={assets.worldCup.fanFavorite}
           alt={won ? `${team} is the fan favorite` : ""}
-          width={2048}
-          height={2048}
+          width={1024}
+          height={1024}
           unoptimized
           // drop-shadow, not the design's box-shadow: the badge is a cutout with
           // a transparent margin, and a box-shadow would paint its rectangle
