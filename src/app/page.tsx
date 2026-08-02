@@ -8,6 +8,7 @@ import { NewEra } from "@/components/NewEra";
 import { Pricing } from "@/components/Pricing";
 import { Footer } from "@/components/Footer";
 import { assets } from "@/lib/assets";
+import { siteSchema } from "@/lib/schema";
 
 // Self-canonical for the homepage. The root layout no longer sets a global
 // canonical (it would be inherited by every route); title/description still
@@ -19,6 +20,12 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-ink">
+      {/* Organization + WebSite entity, emitted server-side so it's in the raw
+          HTML rather than behind hydration. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }}
+      />
       <Navbar />
       <Hero />
       <Testimonials />
